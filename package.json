@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "A dice rolling helper",
   "main": "index.js",
+  "repository": "https://github.com/mthadley/dicey",
   "scripts": {
     "build": "webpack",
     "watch": "webpack --watch",

@@ -97,14 +97,10 @@ viewDiceSelector : Int -> Html Msg
 viewDiceSelector selectedSize =
     let
         sizeSelector size =
-            li
-                [ Attr.class "size-selector"
-                , onClick <| ChangeSize size
-                ]
+            li [ Attr.class "size-selector", onClick <| ChangeSize size ]
                 [ Dice.view size (selectedSize /= size) <| toString size ]
     in
-        ul [ Attr.class "dice-selector" ] <|
-            List.map sizeSelector diceSizes
+        ul [ Attr.class "dice-selector" ] <| List.map sizeSelector diceSizes
 
 
 viewStats : List Int -> Html Msg

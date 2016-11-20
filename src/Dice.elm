@@ -1,9 +1,90 @@
 module Dice exposing (view)
 
-import Html exposing (..)
-import Html.Attributes exposing (class)
+import Html exposing (Html)
+import Html.Attributes as Attr
+import Svg exposing (..)
+import Svg.Attributes exposing (..)
 
 
-view : Int -> Html msg
-view value =
-    div [ class "dice" ] [ text <| toString value ]
+view : Int -> Bool -> String -> Html msg
+view sides filtered value =
+    let
+        fontY =
+            if sides == 4 then
+                "65"
+            else
+                "50"
+    in
+        svg
+            [ class <|
+                "dice"
+                    ++ (if filtered then
+                            " dice-filtered"
+                        else
+                            ""
+                       )
+            , width "100"
+            , height "100"
+            , viewBox "0 0 100 100"
+            ]
+            [ shape sides
+            , text_
+                [ alignmentBaseline "central"
+                , textAnchor "middle"
+                , id "text"
+                , x "50"
+                , y fontY
+                , fontSize "42"
+                ]
+                [ text value ]
+            ]
+
+
+shape : Int -> Svg msg
+shape sides =
+    case sides of
+        4 ->
+            triangle
+
+        6 ->
+            square
+
+        _ ->
+            circle
+
+
+basePolygon : String -> Svg msg
+basePolygon pts =
+    polygon
+        [ fill "none"
+        , strokeWidth "5"
+        , points pts
+        ]
+        []
+
+
+circle : Svg msg
+circle =
+    Svg.circle
+        [ cx "50"
+        , cy "50"
+        , r "48"
+        , fill "none"
+        , strokeWidth "5"
+        ]
+        []
+
+
+diamond : Svg msg
+diamond =
+    basePolygon "50,2 98,50 50,98 2,50"
+
+
+triangle : Svg msg
+triangle =
+    basePolygon "50,2 98,98 2,98"
+
+
+square : Svg msg
+square =
+    basePolygon "2,2 98,2 98,98 2,98"

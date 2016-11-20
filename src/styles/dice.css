@@ -4,11 +4,14 @@
 }
 
 .dice {
-  align-items: center;
   margin: 0 16px 16px 0;
-  border: 2px solid var(--primary);
-  display: flex;
-  height: 32px;
-  justify-content: center;
-  width: 32px;
+  height: 36px;
+  filter: drop-shadow(var(--termShadow));
+  stroke: var(--primary);
+  fill: var(--primary);
+  width: 36px;
+
+  &.dice-filtered {
+    opacity: 0.5;
+  }
 }

@@ -64,6 +64,13 @@ label {
   margin-bottom: 16px;
 }
 
+.dice-selector {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
 .form-group {
   margin-bottom: 16px;
 }

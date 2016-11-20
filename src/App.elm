@@ -6,7 +6,7 @@ import Html exposing (..)
 import Html.Attributes as Attr
 import Html.Events exposing (..)
 import Random
-import Util exposing (isNothing)
+import Util exposing (average, isNothing)
 
 
 -- MODEL
@@ -26,7 +26,7 @@ init =
 
 diceSizes : List Int
 diceSizes =
-    [ 2, 4, 6 ]
+    [ 2, 4, 6, 8, 12, 20 ]
 
 
 
@@ -135,34 +135,35 @@ update msg model =
             { model | diceCount = count, rolls = Nothing } ! []
 
         ChangeSize size ->
-            { model | diceSize = size, rolls = Nothing } ! []
+            let
+                newModel =
+                    { model | diceSize = size, rolls = Nothing }
+            in
+                ( newModel, rollIfReady newModel )
 
         Roll ->
-            case model.diceCount of
-                Nothing ->
-                    model ! []
-
-                Just count ->
-                    let
-                        cmd =
-                            Random.int 1 model.diceSize
-                                |> Random.list count
-                                |> Random.generate RollResults
-                    in
-                        ( model, cmd )
+            ( model, rollIfReady model )
 
         RollResults values ->
             { model | rolls = Just values } ! []
 
 
+rollIfReady : Model -> Cmd Msg
+rollIfReady { diceSize, diceCount } =
+    Maybe.map (\count -> rollDice diceSize count) diceCount
+        |> Maybe.withDefault Cmd.none
+
+
+rollDice : Int -> Int -> Cmd Msg
+rollDice size count =
+    Random.int 1 size
+        |> Random.list count
+        |> Random.generate RollResults
+
+
 toInt : (Maybe Int -> msg) -> String -> msg
 toInt msg =
     String.toInt >> Result.toMaybe >> msg
-
-
-average : List Int -> Float
-average values =
-    (toFloat <| List.sum values) / (toFloat <| List.length values)
 
 
 

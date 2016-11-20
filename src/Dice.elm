@@ -49,6 +49,15 @@ shape sides =
         6 ->
             square
 
+        8 ->
+            diamond
+
+        12 ->
+            pentagon
+
+        20 ->
+            hexagon
+
         _ ->
             circle
 
@@ -68,7 +77,7 @@ circle =
     Svg.circle
         [ cx "50"
         , cy "50"
-        , r "48"
+        , r "47"
         , fill "none"
         , strokeWidth "5"
         ]
@@ -78,6 +87,16 @@ circle =
 diamond : Svg msg
 diamond =
     basePolygon "50,2 98,50 50,98 2,50"
+
+
+hexagon : Svg msg
+hexagon =
+    basePolygon "50,2 98,33 98,66 50,98 2,66 2,33"
+
+
+pentagon : Svg msg
+pentagon =
+    basePolygon "50,2 98,45 80,98 20,98 2,45"
 
 
 triangle : Svg msg

@@ -1,6 +1,11 @@
 module Util exposing (..)
 
 
+average : List Int -> Float
+average values =
+    (toFloat <| List.sum values) / (toFloat <| List.length values)
+
+
 isJust : Maybe a -> Bool
 isJust maybe =
     case maybe of

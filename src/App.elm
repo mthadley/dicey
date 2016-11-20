@@ -97,7 +97,11 @@ viewDiceSelector : Int -> Html Msg
 viewDiceSelector selectedSize =
     let
         sizeSelector size =
-            button [ Attr.class "size-selector", onClick <| ChangeSize size ]
+            button
+                [ Attr.class "size-selector"
+                , Attr.type_ "button"
+                , onClick <| ChangeSize size
+                ]
                 [ Dice.view size (selectedSize /= size) <| toString size ]
     in
         div [ Attr.class "dice-selector" ] <| List.map sizeSelector diceSizes
@@ -135,11 +139,7 @@ update msg model =
             { model | diceCount = count, rolls = Nothing } ! []
 
         ChangeSize size ->
-            let
-                newModel =
-                    { model | diceSize = size, rolls = Nothing }
-            in
-                ( newModel, rollIfReady newModel )
+            ( { model | diceSize = size, rolls = Nothing }, rollIfReady model )
 
         Roll ->
             ( model, rollIfReady model )

@@ -1,7 +1,7 @@
 {
     "version": "1.0.0",
     "summary": "A dice rolling helper",
-    "repository": "https://github.com/mthadley/dicey",
+    "repository": "https://github.com/mthadley/dicey.git",
     "license": "MIT",
     "source-directories": [
         ".",

@@ -139,7 +139,11 @@ update msg model =
             { model | diceCount = count, rolls = Nothing } ! []
 
         ChangeSize size ->
-            ( { model | diceSize = size, rolls = Nothing }, rollIfReady model )
+            let
+                newModel =
+                    { model | diceSize = size, rolls = Nothing }
+            in
+                ( newModel, rollIfReady newModel )
 
         Roll ->
             ( model, rollIfReady model )

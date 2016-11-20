@@ -10191,13 +10191,12 @@
 							{diceCount: _p9._0, rolls: _elm_lang$core$Maybe$Nothing}),
 						{ctor: '[]'});
 				case 'ChangeSize':
-					var newModel = _elm_lang$core$Native_Utils.update(
-						model,
-						{diceSize: _p9._0, rolls: _elm_lang$core$Maybe$Nothing});
 					return {
 						ctor: '_Tuple2',
-						_0: newModel,
-						_1: _mthadley$dicey$App$rollIfReady(newModel)
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{diceSize: _p9._0, rolls: _elm_lang$core$Maybe$Nothing}),
+						_1: _mthadley$dicey$App$rollIfReady(model)
 					};
 				case 'Roll':
 					return {
@@ -10232,9 +10231,13 @@
 					_0: _elm_lang$html$Html_Attributes$class('size-selector'),
 					_1: {
 						ctor: '::',
-						_0: _elm_lang$html$Html_Events$onClick(
-							_mthadley$dicey$App$ChangeSize(size)),
-						_1: {ctor: '[]'}
+						_0: _elm_lang$html$Html_Attributes$type_('button'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onClick(
+								_mthadley$dicey$App$ChangeSize(size)),
+							_1: {ctor: '[]'}
+						}
 					}
 				},
 				{

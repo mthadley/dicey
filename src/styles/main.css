@@ -1,0 +1,103 @@
+@import "variables.css";
+@import "dice.css";
+
+body {
+  color: var(--primary);
+  font-family: 'VT323', monospace;
+  font-size: var(--fontSize);
+  text-shadow: var(--termShadow);
+
+  background-color: var(--secondary);
+}
+
+button {
+  @apply --fonts;
+
+  background: transparent;
+  border: 2px solid var(--primary);
+  box-shadow: var(--termShadow);
+  cursor: pointer;
+  outline: none;
+
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+header {
+  display: inline-block;
+  margin-bottom: 16px;
+
+  & .header-ascii {
+    font-size: 2.5vw;
+    max-width: 100%;
+    white-space: pre;
+  }
+
+  & .header-tagline {
+    text-align: end;
+  }
+}
+
+input {
+  @apply --fonts;
+
+  background: var(--primary);
+  border-width: 0;
+  box-shadow: var(--termShadow);
+  color: var(--secondary);
+  max-width: 80px;
+  outline: none;
+}
+
+label {
+  margin-right: 16px;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 768px;
+}
+
+.dice-form {
+  margin-bottom: 16px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.results-container {
+  padding: 16px 0;
+  position: relative;
+
+  &:before {
+    background: transparent;
+    border-top: 2px solid var(--primary);
+    box-shadow: var(--termShadow);
+    content: '';
+    height: 2px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
+.results-stats {
+  display: flex;
+  margin-top: 0;
+  list-style: none;
+  flex-wrap: wrap;
+
+  & li {
+    margin-right: 8px;
+    padding: 8px;
+  }
+}
+
+@media (min-width: 768px) {
+  header .header-ascii {
+    font-size: 16px;
+  }
+}

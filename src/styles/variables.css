@@ -1,0 +1,16 @@
+:root {
+  --primary: #48E048;
+  --secondary: black;
+
+  --fontSize: 18px;
+
+  --termShadow: 0 0 4px color(var(--primary) l(- 20%));
+
+  --fonts: {
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    text-shadow: inherit;
+  }
+}
+

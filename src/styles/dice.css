@@ -1,0 +1,14 @@
+.dice-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dice {
+  align-items: center;
+  margin: 0 16px 16px 0;
+  border: 2px solid var(--primary);
+  display: flex;
+  height: 32px;
+  justify-content: center;
+  width: 32px;
+}

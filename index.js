@@ -10191,12 +10191,13 @@
 							{diceCount: _p9._0, rolls: _elm_lang$core$Maybe$Nothing}),
 						{ctor: '[]'});
 				case 'ChangeSize':
+					var newModel = _elm_lang$core$Native_Utils.update(
+						model,
+						{diceSize: _p9._0, rolls: _elm_lang$core$Maybe$Nothing});
 					return {
 						ctor: '_Tuple2',
-						_0: _elm_lang$core$Native_Utils.update(
-							model,
-							{diceSize: _p9._0, rolls: _elm_lang$core$Maybe$Nothing}),
-						_1: _mthadley$dicey$App$rollIfReady(model)
+						_0: newModel,
+						_1: _mthadley$dicey$App$rollIfReady(newModel)
 					};
 				case 'Roll':
 					return {

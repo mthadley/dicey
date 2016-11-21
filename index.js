@@ -93,7 +93,7 @@
 
 
 	// module
-	exports.push([module.id, ".dice-container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n}\n.dice {\n  margin: 0 16px 16px 0;\n  height: 36px;\n  filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns=\"http://www.w3.org/2000/svg\"><filter id=\"filter\"><feGaussianBlur in=\"SourceAlpha\" stdDeviation=\"4\" /><feOffset dx=\"1\" dy=\"1\" result=\"offsetblur\" /><feFlood flood-color=\"rgba(28,166,28,1)\" /><feComposite in2=\"offsetblur\" operator=\"in\" /><feMerge><feMergeNode /><feMergeNode in=\"SourceGraphic\" /></feMerge></filter></svg>#filter');\n  -webkit-filter: drop-shadow(0 0 4px rgb(28, 166, 28));\n          filter: drop-shadow(0 0 4px rgb(28, 166, 28));\n  stroke: #48E048;\n  fill: #48E048;\n  width: 36px\n}\n.dice.dice-filtered {\n  opacity: 0.5;\n}\nbody {\n  color: #48E048;\n  font-family: 'VT323', monospace;\n  font-size: 18px;\n  text-shadow: 0 0 4px rgb(28, 166, 28);\n\n  background-color: black;\n  -webkit-tap-highlight-color: #48E048;\n}\nbutton {\n  color: inherit;\n  font-family: inherit;\n  font-size: inherit;\n  text-shadow: inherit;\n\n  background: transparent;\n  border: 2px solid #48E048;\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  cursor: pointer;\n  outline: none\n}\nbutton[disabled] {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\nheader {\n  display: inline-block;\n  margin-bottom: 16px\n}\nheader .header-ascii {\n  font-size: 2.5vw;\n  max-width: 100%;\n  white-space: pre;\n}\nheader .header-tagline {\n  text-align: end;\n}\ninput {\n  color: inherit;\n  font-family: inherit;\n  font-size: inherit;\n  text-shadow: inherit;\n\n  background: #48E048;\n  border-width: 0;\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  color: black;\n  max-width: 80px;\n  outline: none;\n}\nlabel {\n  display: inline-block;\n  margin: 0 16px 16px 0;\n}\n.container {\n  margin: 0 auto;\n  max-width: 768px;\n}\n.dice-form {\n  margin-bottom: 16px;\n}\n.dice-size {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0;\n}\n.form-group {\n  margin-bottom: 16px;\n}\n.results-container {\n  padding: 16px 0;\n  position: relative\n}\n.results-container:before {\n  background: transparent;\n  border-top: 2px solid #48E048;\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  content: '';\n  height: 2px;\n  position: absolute;\n  top: 0;\n  width: 100%;\n}\n.results-stats {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  margin-top: 0;\n  padding: 0;\n  list-style: none;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap\n}\n.results-stats li {\n  margin-right: 8px;\n  padding: 8px;\n}\n.size-selector {\n  border: none;\n  box-shadow: none;\n  display: inline;\n}\n@media (min-width: 768px) {\n  header .header-ascii {\n    font-size: 16px;\n  }\n}\n", ""]);
+	exports.push([module.id, ".dice-container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n}\n.dice {\n  margin: 0 16px 16px 0;\n  height: 36px;\n  filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns=\"http://www.w3.org/2000/svg\"><filter id=\"filter\"><feGaussianBlur in=\"SourceAlpha\" stdDeviation=\"4\" /><feOffset dx=\"1\" dy=\"1\" result=\"offsetblur\" /><feFlood flood-color=\"rgba(28,166,28,1)\" /><feComposite in2=\"offsetblur\" operator=\"in\" /><feMerge><feMergeNode /><feMergeNode in=\"SourceGraphic\" /></feMerge></filter></svg>#filter');\n  -webkit-filter: drop-shadow(0 0 4px rgb(28, 166, 28));\n          filter: drop-shadow(0 0 4px rgb(28, 166, 28));\n  stroke: #48E048;\n  fill: #48E048;\n  width: 36px\n}\n.dice.dice-filtered {\n  opacity: 0.5;\n}\n.select {\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  cursor: pointer;\n  display: inline-block;\n  min-width: 150px;\n  position: relative\n}\n.select .select-selected {\n  background: #48E048;\n  color: black;\n  padding: 8px 32px 8px 8px;\n}\n.select .select-list {\n  background: black;\n  border: 2px solid #48E048;\n  border-top-width: 0;\n  color: #48E048;\n  left: 0;\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: absolute;\n  top: 100%;\n  width: 100%;\n  z-index: 100;\n}\n.select .select-list li {\n  padding: 8px;\n}\n.select .select-list li:hover {\n  background: #48E048;\n  color: black;\n}\n.select:after {\n  border-left: 10px solid transparent;\n  border-right: 10px solid transparent;\n  border-top: 10px solid black;\n  content: '';\n  height: 0;\n  pointer-events: none;\n  position: absolute;\n  right: 5px;\n  top: 16px;\n  width: 0;\n}\n* {\n  box-sizing: border-box;\n}\nbody {\n  color: #48E048;\n  font-family: 'VT323', monospace;\n  font-size: 18px;\n  text-shadow: 0 0 4px rgb(28, 166, 28);\n\n  background-color: black;\n  -webkit-tap-highlight-color: #48E048;\n}\nbutton {\n  color: inherit;\n  font-family: inherit;\n  font-size: inherit;\n  text-shadow: inherit;\n\n  background: transparent;\n  border: 2px solid #48E048;\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  cursor: pointer;\n  outline: none\n}\nbutton[disabled] {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\nheader {\n  display: inline-block;\n  margin-bottom: 16px\n}\nheader .header-ascii {\n  font-size: 2.5vw;\n  max-width: 100%;\n  white-space: pre;\n}\nheader .header-tagline {\n  text-align: end;\n}\ninput {\n  color: inherit;\n  font-family: inherit;\n  font-size: inherit;\n  text-shadow: inherit;\n\n  background: #48E048;\n  border-width: 0;\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  color: black;\n  max-width: 80px;\n  outline: none;\n}\nlabel {\n  display: inline-block;\n  margin: 0 16px 16px 0;\n}\n.container {\n  margin: 0 auto;\n  max-width: 768px;\n}\n.dice-form {\n  margin-bottom: 16px\n}\n.dice-form .select {\n  margin-right: 16px;\n}\n.dice-size {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0;\n}\n.form-group {\n  margin-bottom: 16px;\n}\n.results-container {\n  padding: 16px 0;\n  position: relative\n}\n.results-container:before {\n  background: transparent;\n  border-top: 2px solid #48E048;\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  content: '';\n  height: 2px;\n  position: absolute;\n  top: 0;\n  width: 100%;\n}\n.results-stats {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  margin-top: 0;\n  padding: 0;\n  list-style: none;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap\n}\n.results-stats li {\n  margin-right: 8px;\n  padding: 8px;\n}\n.size-selector {\n  border: none;\n  box-shadow: none;\n  display: inline;\n}\n@media (min-width: 768px) {\n  header .header-ascii {\n    font-size: 16px;\n  }\n}\n", ""]);
 
 	// exports
 
@@ -9865,7 +9865,7 @@
 		}
 	};
 	var _mthadley$dicey$Dice$view = F3(
-		function (sides, filtered, value) {
+		function (sides, active, value) {
 			var fontY = _elm_lang$core$Native_Utils.eq(sides, 4) ? '65' : '50';
 			return A2(
 				_elm_lang$svg$Svg$svg,
@@ -9875,7 +9875,7 @@
 						A2(
 							_elm_lang$core$Basics_ops['++'],
 							'dice',
-							filtered ? ' dice-filtered' : '')),
+							active ? '' : ' dice-filtered')),
 					_1: {
 						ctor: '::',
 						_0: _elm_lang$svg$Svg_Attributes$width('100'),
@@ -9979,32 +9979,147 @@
 	var _mthadley$dicey$Util$isNothing = function (_p1) {
 		return !_mthadley$dicey$Util$isJust(_p1);
 	};
+	var _mthadley$dicey$Util$intFromInput = function (msg) {
+		return function (_p2) {
+			return msg(
+				_elm_lang$core$Result$toMaybe(
+					_elm_lang$core$String$toInt(_p2)));
+		};
+	};
 	var _mthadley$dicey$Util$average = function (values) {
 		return _elm_lang$core$Basics$toFloat(
 			_elm_lang$core$List$sum(values)) / _elm_lang$core$Basics$toFloat(
 			_elm_lang$core$List$length(values));
 	};
 
+	var _mthadley$dicey$Select$update = F2(
+		function (msg, model) {
+			var _p0 = msg;
+			if (_p0.ctor === 'SelectItem') {
+				var _p1 = _p0._0;
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{open: false, selected: _p1}),
+					_1: _elm_lang$core$Tuple$second(_p1)
+				};
+			} else {
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{open: !model.open}),
+					_1: _elm_lang$core$Tuple$second(model.selected)
+				};
+			}
+		});
+	var _mthadley$dicey$Select$Model = F3(
+		function (a, b, c) {
+			return {open: a, items: b, selected: c};
+		});
+	var _mthadley$dicey$Select$init = _mthadley$dicey$Select$Model(false);
+	var _mthadley$dicey$Select$SelectItem = function (a) {
+		return {ctor: 'SelectItem', _0: a};
+	};
+	var _mthadley$dicey$Select$viewItem = function (item) {
+		return A2(
+			_elm_lang$html$Html$li,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(
+					_mthadley$dicey$Select$SelectItem(item)),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(
+					_elm_lang$core$Tuple$first(item)),
+				_1: {ctor: '[]'}
+			});
+	};
+	var _mthadley$dicey$Select$viewList = function (model) {
+		return model.open ? {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$ul,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('select-list'),
+					_1: {ctor: '[]'}
+				},
+				A2(_elm_lang$core$List$map, _mthadley$dicey$Select$viewItem, model.items)),
+			_1: {ctor: '[]'}
+		} : {ctor: '[]'};
+	};
+	var _mthadley$dicey$Select$Toggle = {ctor: 'Toggle'};
+	var _mthadley$dicey$Select$view = function (model) {
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('select'),
+				_1: {ctor: '[]'}
+			},
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('select-selected'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(_mthadley$dicey$Select$Toggle),
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(
+								_elm_lang$core$Tuple$first(model.selected)),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				},
+				_mthadley$dicey$Select$viewList(model)));
+	};
+
 	var _mthadley$dicey$App$subscriptions = function (_p0) {
 		return _elm_lang$core$Platform_Sub$none;
 	};
-	var _mthadley$dicey$App$toInt = function (msg) {
-		return function (_p1) {
-			return msg(
-				_elm_lang$core$Result$toMaybe(
-					_elm_lang$core$String$toInt(_p1)));
-		};
+	var _mthadley$dicey$App$getFilterF = function (filter) {
+		var _p1 = filter;
+		switch (_p1.ctor) {
+			case 'GreaterThan':
+				return F2(
+					function (x, y) {
+						return _elm_lang$core$Native_Utils.cmp(x, y) > 0;
+					});
+			case 'LessThan':
+				return F2(
+					function (x, y) {
+						return _elm_lang$core$Native_Utils.cmp(x, y) < 0;
+					});
+			default:
+				return F2(
+					function (x, y) {
+						return _elm_lang$core$Native_Utils.eq(x, y);
+					});
+		}
 	};
-	var _mthadley$dicey$App$viewStat = F2(
-		function (label, value) {
-			return _elm_lang$html$Html$text(
-				A2(
-					_elm_lang$core$Basics_ops['++'],
-					label,
-					_elm_lang$core$Basics$toString(
-						A2(_elm_lang$core$Maybe$withDefault, 0, value))));
-		});
 	var _mthadley$dicey$App$viewStats = function (rolls) {
+		var viewStat = F2(
+			function (label, value) {
+				return _elm_lang$html$Html$text(
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						label,
+						_elm_lang$core$Basics$toString(
+							A2(_elm_lang$core$Maybe$withDefault, 0, value))));
+			});
 		return A2(
 			_elm_lang$html$Html$ul,
 			{
@@ -10038,7 +10153,7 @@
 						{
 							ctor: '::',
 							_0: A2(
-								_mthadley$dicey$App$viewStat,
+								viewStat,
 								'Largest: ',
 								_elm_lang$core$List$maximum(rolls)),
 							_1: {ctor: '[]'}
@@ -10051,7 +10166,7 @@
 							{
 								ctor: '::',
 								_0: A2(
-									_mthadley$dicey$App$viewStat,
+									viewStat,
 									'Smallest: ',
 									_elm_lang$core$List$minimum(rolls)),
 								_1: {ctor: '[]'}
@@ -10062,7 +10177,24 @@
 			});
 	};
 	var _mthadley$dicey$App$viewDice = F2(
-		function (size, rolls) {
+		function (_p2, rolls) {
+			var _p3 = _p2;
+			var filterHelper = function (value) {
+				return A2(
+					_elm_lang$core$Maybe$withDefault,
+					true,
+					A2(
+						_elm_lang$core$Maybe$map,
+						A2(_mthadley$dicey$App$getFilterF, _p3.selectedFilter, value),
+						_p3.filterValue));
+			};
+			var viewHelper = function (value) {
+				return A3(
+					_mthadley$dicey$Dice$view,
+					_p3.diceSize,
+					filterHelper(value),
+					_elm_lang$core$Basics$toString(value));
+			};
 			return A2(
 				_elm_lang$html$Html$div,
 				{
@@ -10070,26 +10202,17 @@
 					_0: _elm_lang$html$Html_Attributes$class('dice-container'),
 					_1: {ctor: '[]'}
 				},
-				A2(
-					_elm_lang$core$List$map,
-					function (_p2) {
-						return A3(
-							_mthadley$dicey$Dice$view,
-							size,
-							false,
-							_elm_lang$core$Basics$toString(_p2));
-					},
-					rolls));
+				A2(_elm_lang$core$List$map, viewHelper, rolls));
 		});
 	var _mthadley$dicey$App$viewResults = function (model) {
-		var _p3 = model.rolls;
-		if (_p3.ctor === 'Nothing') {
+		var _p4 = model.rolls;
+		if (_p4.ctor === 'Nothing') {
 			return A2(
 				_elm_lang$html$Html$div,
 				{ctor: '[]'},
 				{ctor: '[]'});
 		} else {
-			var _p4 = _p3._0;
+			var _p5 = _p4._0;
 			return A2(
 				_elm_lang$html$Html$section,
 				{
@@ -10099,26 +10222,26 @@
 				},
 				{
 					ctor: '::',
-					_0: _mthadley$dicey$App$viewStats(_p4),
+					_0: _mthadley$dicey$App$viewStats(_p5),
 					_1: {
 						ctor: '::',
-						_0: A2(_mthadley$dicey$App$viewDice, model.diceSize, _p4),
+						_0: A2(_mthadley$dicey$App$viewDice, model, _p5),
 						_1: {ctor: '[]'}
 					}
 				});
 		}
 	};
-	var _mthadley$dicey$App$viewButtonText = function (_p5) {
+	var _mthadley$dicey$App$viewButtonText = function (_p6) {
 		return _elm_lang$html$Html$text(
 			A2(
 				_elm_lang$core$Maybe$withDefault,
 				'Roll!',
 				A2(
 					_elm_lang$core$Maybe$map,
-					function (_p6) {
+					function (_p7) {
 						return 'Reroll!';
 					},
-					_p5)));
+					_p6)));
 	};
 	var _mthadley$dicey$App$diceSizes = {
 		ctor: '::',
@@ -10145,15 +10268,38 @@
 			}
 		}
 	};
-	var _mthadley$dicey$App$Model = F3(
-		function (a, b, c) {
-			return {rolls: a, diceCount: b, diceSize: c};
+	var _mthadley$dicey$App$Model = F6(
+		function (a, b, c, d, e, f) {
+			return {rolls: a, diceCount: b, diceSize: c, filterDropdown: d, filterValue: e, selectedFilter: f};
 		});
-	var _mthadley$dicey$App$init = {
-		ctor: '_Tuple2',
-		_0: A3(_mthadley$dicey$App$Model, _elm_lang$core$Maybe$Nothing, _elm_lang$core$Maybe$Nothing, 6),
-		_1: _elm_lang$core$Platform_Cmd$none
+	var _mthadley$dicey$App$Equal = {ctor: 'Equal'};
+	var _mthadley$dicey$App$LessThan = {ctor: 'LessThan'};
+	var _mthadley$dicey$App$GreaterThan = {ctor: 'GreaterThan'};
+	var _mthadley$dicey$App$initialFilter = {ctor: '_Tuple2', _0: 'Greater Than', _1: _mthadley$dicey$App$GreaterThan};
+	var _mthadley$dicey$App$selectItems = {
+		ctor: '::',
+		_0: _mthadley$dicey$App$initialFilter,
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'Less Than', _1: _mthadley$dicey$App$LessThan},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'Equal', _1: _mthadley$dicey$App$Equal},
+				_1: {ctor: '[]'}
+			}
+		}
 	};
+	var _mthadley$dicey$App$init = A2(
+		_elm_lang$core$Platform_Cmd_ops['!'],
+		{
+			rolls: _elm_lang$core$Maybe$Nothing,
+			diceCount: _elm_lang$core$Maybe$Nothing,
+			diceSize: 6,
+			filterDropdown: A2(_mthadley$dicey$Select$init, _mthadley$dicey$App$selectItems, _mthadley$dicey$App$initialFilter),
+			filterValue: _elm_lang$core$Maybe$Nothing,
+			selectedFilter: _elm_lang$core$Tuple$second(_mthadley$dicey$App$initialFilter)
+		},
+		{ctor: '[]'});
 	var _mthadley$dicey$App$RollResults = function (a) {
 		return {ctor: 'RollResults', _0: a};
 	};
@@ -10167,38 +10313,55 @@
 					count,
 					A2(_elm_lang$core$Random$int, 1, size)));
 		});
-	var _mthadley$dicey$App$rollIfReady = function (_p7) {
-		var _p8 = _p7;
+	var _mthadley$dicey$App$rollIfReady = function (_p8) {
+		var _p9 = _p8;
 		return A2(
 			_elm_lang$core$Maybe$withDefault,
 			_elm_lang$core$Platform_Cmd$none,
 			A2(
 				_elm_lang$core$Maybe$map,
 				function (count) {
-					return A2(_mthadley$dicey$App$rollDice, _p8.diceSize, count);
+					return A2(_mthadley$dicey$App$rollDice, _p9.diceSize, count);
 				},
-				_p8.diceCount));
+				_p9.diceCount));
 	};
 	var _mthadley$dicey$App$update = F2(
 		function (msg, model) {
-			var _p9 = msg;
-			switch (_p9.ctor) {
+			var _p10 = msg;
+			switch (_p10.ctor) {
+				case 'ChangeFilterValue':
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{filterValue: _p10._0}),
+						{ctor: '[]'});
 				case 'ChangeDiceCount':
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
 							model,
-							{diceCount: _p9._0, rolls: _elm_lang$core$Maybe$Nothing}),
+							{diceCount: _p10._0, rolls: _elm_lang$core$Maybe$Nothing}),
 						{ctor: '[]'});
 				case 'ChangeSize':
 					var newModel = _elm_lang$core$Native_Utils.update(
 						model,
-						{diceSize: _p9._0, rolls: _elm_lang$core$Maybe$Nothing});
+						{diceSize: _p10._0, rolls: _elm_lang$core$Maybe$Nothing});
 					return {
 						ctor: '_Tuple2',
 						_0: newModel,
 						_1: _mthadley$dicey$App$rollIfReady(newModel)
 					};
+				case 'FilterDropdownMsg':
+					var _p11 = A2(_mthadley$dicey$Select$update, _p10._0, model.filterDropdown);
+					var newModel = _p11._0;
+					var selected = _p11._1;
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{filterDropdown: newModel, selectedFilter: selected}),
+						{ctor: '[]'});
 				case 'Roll':
 					return {
 						ctor: '_Tuple2',
@@ -10211,14 +10374,20 @@
 						_elm_lang$core$Native_Utils.update(
 							model,
 							{
-								rolls: _elm_lang$core$Maybe$Just(_p9._0)
+								rolls: _elm_lang$core$Maybe$Just(_p10._0)
 							}),
 						{ctor: '[]'});
 			}
 		});
 	var _mthadley$dicey$App$Roll = {ctor: 'Roll'};
+	var _mthadley$dicey$App$FilterDropdownMsg = function (a) {
+		return {ctor: 'FilterDropdownMsg', _0: a};
+	};
 	var _mthadley$dicey$App$ChangeDiceCount = function (a) {
 		return {ctor: 'ChangeDiceCount', _0: a};
+	};
+	var _mthadley$dicey$App$ChangeFilterValue = function (a) {
+		return {ctor: 'ChangeFilterValue', _0: a};
 	};
 	var _mthadley$dicey$App$ChangeSize = function (a) {
 		return {ctor: 'ChangeSize', _0: a};
@@ -10246,7 +10415,7 @@
 					_0: A3(
 						_mthadley$dicey$Dice$view,
 						size,
-						!_elm_lang$core$Native_Utils.eq(selectedSize, size),
+						_elm_lang$core$Native_Utils.eq(selectedSize, size),
 						_elm_lang$core$Basics$toString(size)),
 					_1: {ctor: '[]'}
 				});
@@ -10310,7 +10479,7 @@
 											_1: {
 												ctor: '::',
 												_0: _elm_lang$html$Html_Events$onInput(
-													_mthadley$dicey$App$toInt(_mthadley$dicey$App$ChangeDiceCount)),
+													_mthadley$dicey$Util$intFromInput(_mthadley$dicey$App$ChangeDiceCount)),
 												_1: {ctor: '[]'}
 											}
 										},
@@ -10347,29 +10516,78 @@
 								ctor: '::',
 								_0: A2(
 									_elm_lang$html$Html$div,
-									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$class('form-group'),
+										_1: {ctor: '[]'}
+									},
 									{
 										ctor: '::',
 										_0: A2(
-											_elm_lang$html$Html$button,
+											_elm_lang$html$Html$label,
 											{
 												ctor: '::',
-												_0: _elm_lang$html$Html_Attributes$disabled(
-													_mthadley$dicey$Util$isNothing(model.diceCount)),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$html$Html_Attributes$type_('submit'),
-													_1: {ctor: '[]'}
-												}
+												_0: _elm_lang$html$Html_Attributes$for('filterValue'),
+												_1: {ctor: '[]'}
 											},
 											{
 												ctor: '::',
-												_0: _mthadley$dicey$App$viewButtonText(model.rolls),
+												_0: _elm_lang$html$Html$text('Filter?'),
 												_1: {ctor: '[]'}
 											}),
-										_1: {ctor: '[]'}
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$map,
+												_mthadley$dicey$App$FilterDropdownMsg,
+												_mthadley$dicey$Select$view(model.filterDropdown)),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$input,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$id('filterValue'),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$html$Html_Events$onInput(
+																_mthadley$dicey$Util$intFromInput(_mthadley$dicey$App$ChangeFilterValue)),
+															_1: {ctor: '[]'}
+														}
+													},
+													{ctor: '[]'}),
+												_1: {ctor: '[]'}
+											}
+										}
 									}),
-								_1: {ctor: '[]'}
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$div,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$button,
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$disabled(
+														_mthadley$dicey$Util$isNothing(model.diceCount)),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$type_('submit'),
+														_1: {ctor: '[]'}
+													}
+												},
+												{
+													ctor: '::',
+													_0: _mthadley$dicey$App$viewButtonText(model.rolls),
+													_1: {ctor: '[]'}
+												}),
+											_1: {ctor: '[]'}
+										}),
+									_1: {ctor: '[]'}
+								}
 							}
 						}
 					}),

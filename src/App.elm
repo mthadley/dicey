@@ -6,7 +6,7 @@ import Html exposing (..)
 import Html.Attributes as Attr
 import Html.Events exposing (..)
 import Random
-import Util exposing (average, intFromInput, isNothing)
+import Util exposing (average, mapMaybeInt, isNothing)
 import Select
 
 
@@ -84,7 +84,7 @@ viewMain model =
                 [ label [ Attr.for "diceCount" ] [ text "How many dice?" ]
                 , input
                     [ Attr.id "diceCount"
-                    , onInput <| intFromInput ChangeDiceCount
+                    , onInput <| mapMaybeInt ChangeDiceCount
                     ]
                     []
                 ]
@@ -97,7 +97,7 @@ viewMain model =
                 , Html.map FilterDropdownMsg <| Select.view model.filterDropdown
                 , input
                     [ Attr.id "filterValue"
-                    , onInput <| intFromInput ChangeFilterValue
+                    , onInput <| mapMaybeInt ChangeFilterValue
                     ]
                     []
                 ]
@@ -211,7 +211,7 @@ update msg model =
 
 rollIfReady : Model -> Cmd Msg
 rollIfReady { diceSize, diceCount } =
-    Maybe.map (\count -> rollDice diceSize count) diceCount
+    Maybe.map (rollDice diceSize) diceCount
         |> Maybe.withDefault Cmd.none
 
 

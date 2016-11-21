@@ -6,8 +6,8 @@ average values =
     (toFloat <| List.sum values) / (toFloat <| List.length values)
 
 
-intFromInput : (Maybe Int -> msg) -> String -> msg
-intFromInput msg =
+mapMaybeInt : (Maybe Int -> msg) -> String -> msg
+mapMaybeInt msg =
     String.toInt >> Result.toMaybe >> msg
 
 

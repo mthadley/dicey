@@ -4,11 +4,13 @@
 }
 
 .dice {
-  margin: 0 16px 16px 0;
-  height: 36px;
-  filter: drop-shadow(var(--termShadow));
-  stroke: var(--primary);
+  backface-visibility: hidden;
   fill: var(--primary);
+  filter: drop-shadow(var(--termShadow));
+  height: 36px;
+  margin: 0 16px 16px 0;
+  stroke: var(--primary);
+  transition: opacity 0.2s ease-out;
   width: 36px;
 
   &.dice-filtered {

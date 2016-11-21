@@ -7,7 +7,7 @@ import Svg.Attributes exposing (..)
 
 
 view : Int -> Bool -> String -> Html msg
-view sides filtered value =
+view sides active value =
     let
         fontY =
             if sides == 4 then
@@ -18,10 +18,10 @@ view sides filtered value =
         svg
             [ class <|
                 "dice"
-                    ++ (if filtered then
-                            " dice-filtered"
-                        else
+                    ++ (if active then
                             ""
+                        else
+                            " dice-filtered"
                        )
             , width "100"
             , height "100"

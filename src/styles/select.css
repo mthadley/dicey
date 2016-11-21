@@ -1,0 +1,50 @@
+.select {
+  box-shadow: var(--termShadow);
+  cursor: pointer;
+  display: inline-block;
+  min-width: 150px;
+  position: relative;
+
+  & .select-selected {
+    background: var(--primary);
+    color: var(--secondary);
+    padding: 8px 32px 8px 8px;
+  }
+
+  & .select-list {
+    background: var(--secondary);
+    border: 2px solid var(--primary);
+    border-top-width: 0;
+    color: var(--primary);
+    left: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    z-index: 100;
+
+    & li {
+      padding: 8px;
+
+      &:hover {
+        background: var(--primary);
+        color: var(--secondary);
+      }
+    }
+  }
+
+  &:after {
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid var(--secondary);
+    content: '';
+    height: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 5px;
+    top: 16px;
+    width: 0;
+  }
+}

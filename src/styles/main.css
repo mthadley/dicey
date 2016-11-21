@@ -1,5 +1,10 @@
 @import "variables.css";
 @import "dice.css";
+@import "select.css";
+
+* {
+  box-sizing: border-box;
+}
 
 body {
   color: var(--primary);
@@ -64,6 +69,10 @@ label {
 
 .dice-form {
   margin-bottom: 16px;
+
+  & .select {
+    margin-right: 16px;
+  }
 }
 
 .dice-size {

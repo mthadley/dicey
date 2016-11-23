@@ -6,7 +6,7 @@ import Html exposing (..)
 import Html.Attributes as Attr
 import Html.Events exposing (..)
 import Random
-import Util exposing (average, mapMaybeInt, isNothing, isEmpty)
+import Util exposing (average, mapMaybeInt, isNothing)
 import Select
 
 
@@ -144,7 +144,7 @@ viewDice : Model -> List Int -> Html Msg
 viewDice { diceSize, selectedFilter, filterValue } rolls =
     let
         filterHelper value =
-            Maybe.map (getFilterF selectedFilter value) filterValue
+            Maybe.map (getFilterFn selectedFilter value) filterValue
                 |> Maybe.withDefault True
 
         viewHelper value =
@@ -200,7 +200,7 @@ update msg model =
         ApplyFilter ->
             let
                 filterHelper =
-                    List.filter << (flip <| getFilterF model.selectedFilter)
+                    List.filter << (flip <| getFilterFn model.selectedFilter)
 
                 newRolls =
                     Maybe.map2 filterHelper model.filterValue model.rolls
@@ -255,8 +255,8 @@ rollDice size count =
         |> Random.generate RollResults
 
 
-getFilterF : Filter -> (comparable -> comparable -> Bool)
-getFilterF filter =
+getFilterFn : Filter -> (comparable -> comparable -> Bool)
+getFilterFn filter =
     case filter of
         GreaterThan ->
             (>)
@@ -269,8 +269,16 @@ getFilterF filter =
 
 
 filterBtnDisabled : Model -> Bool
-filterBtnDisabled model =
-    False
+filterBtnDisabled { filterValue, rolls, selectedFilter } =
+    let
+        filterFn value =
+            not << (flip <| getFilterFn selectedFilter) value
+
+        filtered value =
+            List.isEmpty << List.filter (filterFn value)
+    in
+        Maybe.map2 filtered filterValue rolls
+            |> Maybe.withDefault True
 
 
 

@@ -6,7 +6,6 @@
 .dice {
   backface-visibility: hidden;
   fill: var(--primary);
-  filter: drop-shadow(var(--termShadow));
   height: 36px;
   margin: 0 16px 16px 0;
   stroke: var(--primary);

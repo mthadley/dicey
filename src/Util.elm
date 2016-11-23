@@ -24,3 +24,8 @@ isJust maybe =
 isNothing : Maybe a -> Bool
 isNothing =
     not << isJust
+
+
+isEmpty : Maybe (List a) -> Bool
+isEmpty =
+    Maybe.withDefault True << Maybe.map List.isEmpty

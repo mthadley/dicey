@@ -6,7 +6,7 @@ import Html exposing (..)
 import Html.Attributes as Attr
 import Html.Events exposing (..)
 import Random
-import Util exposing (average, mapMaybeInt, isNothing)
+import Util exposing (average, mapMaybeInt, isNothing, isEmpty)
 import Select
 
 
@@ -17,6 +17,7 @@ type alias Model =
     { rolls : Maybe (List Int)
     , diceCount : Maybe Int
     , diceSize : Int
+    , diceCountInput : String
     , filterDropdown : Select.Model Filter
     , filterValue : Maybe Int
     , selectedFilter : Filter
@@ -46,6 +47,7 @@ init : ( Model, Cmd Msg )
 init =
     { rolls = Nothing
     , diceCount = Nothing
+    , diceCountInput = ""
     , diceSize = 6
     , filterDropdown = Select.init selectItems initialFilter
     , filterValue = Nothing
@@ -73,7 +75,7 @@ view model =
 
 viewButtonText : Maybe a -> Html msg
 viewButtonText =
-    Maybe.map (\_ -> "Reroll!") >> Maybe.withDefault "Roll!" >> text
+    Maybe.map (always "Reroll!") >> Maybe.withDefault "Roll!" >> text
 
 
 viewMain : Model -> Html Msg
@@ -84,7 +86,10 @@ viewMain model =
                 [ label [ Attr.for "diceCount" ] [ text "How many dice?" ]
                 , input
                     [ Attr.id "diceCount"
-                    , onInput <| mapMaybeInt ChangeDiceCount
+                    , onInput ChangeDiceCount
+                    , Attr.value <|
+                        Maybe.withDefault model.diceCountInput <|
+                            Maybe.map toString model.diceCount
                     ]
                     []
                 ]
@@ -93,7 +98,7 @@ viewMain model =
                 , viewDiceSelector model.diceSize
                 ]
             , div [ Attr.class "form-group" ]
-                [ label [ Attr.for "filterValue" ] [ text "Filter?" ]
+                [ label [ Attr.for "filterValue" ] [ text "Test?" ]
                 , Html.map FilterDropdownMsg <| Select.view model.filterDropdown
                 , input
                     [ Attr.id "filterValue"
@@ -101,12 +106,18 @@ viewMain model =
                     ]
                     []
                 ]
-            , div []
+            , div [ Attr.class "btn-group" ]
                 [ button
                     [ Attr.disabled <| isNothing model.diceCount
                     , Attr.type_ "submit"
                     ]
                     [ viewButtonText model.rolls ]
+                , button
+                    [ Attr.disabled <| filterBtnDisabled model
+                    , Attr.type_ "button"
+                    , onClick ApplyFilter
+                    ]
+                    [ text "Filter" ]
                 ]
             ]
         , viewResults model
@@ -122,7 +133,10 @@ viewResults model =
         Just rolls ->
             section [ Attr.class "results-container" ]
                 [ viewStats rolls
-                , viewDice model rolls
+                , if List.isEmpty rolls then
+                    em [] [ text "No More Dice!" ]
+                  else
+                    viewDice model rolls
                 ]
 
 
@@ -130,7 +144,7 @@ viewDice : Model -> List Int -> Html Msg
 viewDice { diceSize, selectedFilter, filterValue } rolls =
     let
         filterHelper value =
-            Maybe.map ((getFilterF selectedFilter) value) filterValue
+            Maybe.map (getFilterF selectedFilter value) filterValue
                 |> Maybe.withDefault True
 
         viewHelper value =
@@ -171,9 +185,10 @@ viewStats rolls =
 
 
 type Msg
-    = ChangeSize Int
+    = ApplyFilter
+    | ChangeSize Int
     | ChangeFilterValue (Maybe Int)
-    | ChangeDiceCount (Maybe Int)
+    | ChangeDiceCount String
     | FilterDropdownMsg (Select.Msg Filter)
     | Roll
     | RollResults (List Int)
@@ -182,11 +197,29 @@ type Msg
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        ApplyFilter ->
+            let
+                filterHelper =
+                    List.filter << (flip <| getFilterF model.selectedFilter)
+
+                newRolls =
+                    Maybe.map2 filterHelper model.filterValue model.rolls
+
+                newDiceCount =
+                    Maybe.map List.length newRolls
+            in
+                { model | rolls = newRolls, diceCount = newDiceCount } ! []
+
         ChangeFilterValue value ->
             { model | filterValue = value } ! []
 
         ChangeDiceCount count ->
-            { model | diceCount = count, rolls = Nothing } ! []
+            { model
+                | diceCount = Result.toMaybe <| String.toInt count
+                , diceCountInput = count
+                , rolls = Nothing
+            }
+                ! []
 
         ChangeSize size ->
             let
@@ -233,6 +266,11 @@ getFilterF filter =
 
         Equal ->
             (==)
+
+
+filterBtnDisabled : Model -> Bool
+filterBtnDisabled model =
+    False
 
 
 

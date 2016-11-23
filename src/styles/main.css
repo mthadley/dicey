@@ -24,6 +24,7 @@ button {
   box-shadow: var(--termShadow);
   cursor: pointer;
   outline: none;
+  transition: opacity 0.2s ease;
 
   &[disabled] {
     cursor: not-allowed;
@@ -60,6 +61,14 @@ input {
 label {
   display: inline-block;
   margin: 0 16px 16px 0;
+}
+
+.btn-group {
+  display: flex;
+
+  & button {
+    margin-right: 16px;
+  }
 }
 
 .container {

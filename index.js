@@ -93,7 +93,7 @@
 
 
 	// module
-	exports.push([module.id, ".dice-container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n}\n.dice {\n  -webkit-backface-visibility: hidden;\n          backface-visibility: hidden;\n  fill: #48E048;\n  height: 36px;\n  margin: 0 16px 16px 0;\n  stroke: #48E048;\n  -webkit-transition: opacity 0.2s ease-out;\n  transition: opacity 0.2s ease-out;\n  width: 36px\n}\n.dice.dice-filtered {\n  opacity: 0.5;\n}\n.select {\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  cursor: pointer;\n  display: inline-block;\n  min-width: 150px;\n  position: relative\n}\n.select .select-selected {\n  background: #48E048;\n  color: #000;\n  padding: 8px 32px 8px 8px;\n}\n.select .select-list {\n  background: #000;\n  border: 2px solid #48E048;\n  border-top-width: 0;\n  color: #48E048;\n  left: 0;\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: absolute;\n  top: 100%;\n  width: 100%;\n  z-index: 100;\n}\n.select .select-list li {\n  padding: 8px;\n}\n.select .select-list li:hover {\n  background: #48E048;\n  color: #000;\n}\n.select:after {\n  border-left: 10px solid transparent;\n  border-right: 10px solid transparent;\n  border-top: 10px solid #000;\n  content: '';\n  height: 0;\n  pointer-events: none;\n  position: absolute;\n  right: 5px;\n  top: 16px;\n  width: 0;\n}\n* {\n  box-sizing: border-box;\n}\nbody {\n  color: #48E048;\n  font-family: 'VT323', monospace;\n  font-size: 18px;\n  text-shadow: 0 0 4px rgb(28, 166, 28);\n\n  background-color: #000;\n  -webkit-tap-highlight-color: #48E048;\n}\nbutton {\n  color: inherit;\n  font-family: inherit;\n  font-size: inherit;\n  text-shadow: inherit;\n\n  background: transparent;\n  border: 2px solid #48E048;\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  cursor: pointer;\n  outline: none\n}\nbutton[disabled] {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\nheader {\n  display: inline-block;\n  margin-bottom: 16px\n}\nheader .header-ascii {\n  font-size: 2.5vw;\n  max-width: 100%;\n  white-space: pre;\n}\nheader .header-tagline {\n  text-align: end;\n}\ninput {\n  color: inherit;\n  font-family: inherit;\n  font-size: inherit;\n  text-shadow: inherit;\n\n  background: #48E048;\n  border-width: 0;\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  color: #000;\n  max-width: 80px;\n  outline: none;\n}\nlabel {\n  display: inline-block;\n  margin: 0 16px 16px 0;\n}\n.container {\n  margin: 0 auto;\n  max-width: 768px;\n}\n.dice-form {\n  margin-bottom: 16px\n}\n.dice-form .select {\n  margin-right: 16px;\n}\n.dice-size {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  padding: 0;\n}\n.form-group {\n  margin-bottom: 16px;\n}\n.results-container {\n  padding: 16px 0;\n  position: relative\n}\n.results-container:before {\n  background: transparent;\n  border-top: 2px solid #48E048;\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  content: '';\n  height: 2px;\n  position: absolute;\n  top: 0;\n  width: 100%;\n}\n.results-stats {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  margin-top: 0;\n  padding: 0;\n  list-style: none;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap\n}\n.results-stats li {\n  margin-right: 8px;\n  padding: 8px;\n}\n.size-selector {\n  border: none;\n  box-shadow: none;\n  display: inline;\n}\n@media (min-width: 768px) {\n  header .header-ascii {\n    font-size: 16px;\n  }\n}\n", ""]);
+	exports.push([module.id, ".dice-container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n}\n.dice {\n  -webkit-backface-visibility: hidden;\n          backface-visibility: hidden;\n  fill: #48E048;\n  height: 36px;\n  margin: 0 16px 16px 0;\n  stroke: #48E048;\n  -webkit-transition: opacity 0.2s ease-out;\n  transition: opacity 0.2s ease-out;\n  width: 36px\n}\n.dice.dice-filtered {\n  opacity: 0.5;\n}\n.select {\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  cursor: pointer;\n  display: inline-block;\n  min-width: 150px;\n  position: relative\n}\n.select .select-selected {\n  background: #48E048;\n  color: #000;\n  padding: 8px 32px 8px 8px;\n}\n.select .select-list {\n  background: #000;\n  border: 2px solid #48E048;\n  border-top-width: 0;\n  color: #48E048;\n  left: 0;\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: absolute;\n  top: 100%;\n  width: 100%;\n  z-index: 100;\n}\n.select .select-list li {\n  padding: 8px;\n}\n.select .select-list li:hover {\n  background: #48E048;\n  color: #000;\n}\n.select:after {\n  border-left: 10px solid transparent;\n  border-right: 10px solid transparent;\n  border-top: 10px solid #000;\n  content: '';\n  height: 0;\n  pointer-events: none;\n  position: absolute;\n  right: 5px;\n  top: 16px;\n  width: 0;\n}\n* {\n  box-sizing: border-box;\n}\nbody {\n  background-color: #000;\n  color: #48E048;\n  font-family: 'VT323', monospace;\n  font-size: 18px;\n  text-shadow: 0 0 4px rgb(28, 166, 28);\n\n  -webkit-tap-highlight-color: #48E048;\n}\nbutton {\n  color: inherit;\n  font-family: inherit;\n  font-size: inherit;\n  text-shadow: inherit;\n\n  background: transparent;\n  border: 2px solid #48E048;\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  cursor: pointer;\n  outline: none;\n  -webkit-transition: opacity 0.2s ease;\n  transition: opacity 0.2s ease\n}\nbutton[disabled] {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\nheader {\n  display: inline-block;\n  margin-bottom: 16px\n}\nheader .header-ascii {\n  font-size: 2.5vw;\n  max-width: 100%;\n  white-space: pre;\n}\nheader .header-tagline {\n  text-align: end;\n}\ninput {\n  color: inherit;\n  font-family: inherit;\n  font-size: inherit;\n  text-shadow: inherit;\n\n  background: #48E048;\n  border-width: 0;\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  color: #000;\n  max-width: 80px;\n  outline: none\n}\ninput::-webkit-inner-spin-button {\n  display: none;\n}\nlabel {\n  display: inline-block;\n  margin: 0 16px 16px 0;\n}\n.btn-group {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex\n}\n.btn-group button {\n  margin-right: 16px;\n}\n.container {\n  margin: 0 auto;\n  max-width: 768px;\n}\n.dice-form {\n  margin-bottom: 16px\n}\n.dice-form .select {\n  margin-right: 16px;\n}\n.dice-size {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  padding: 0;\n}\n.form-group {\n  margin-bottom: 16px;\n}\n.results-container {\n  padding: 16px 0;\n  position: relative\n}\n.results-container:before {\n  background: transparent;\n  border-top: 2px solid #48E048;\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  content: '';\n  height: 2px;\n  position: absolute;\n  top: 0;\n  width: 100%;\n}\n.results-stats {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  list-style: none;\n  margin-top: 0;\n  padding: 0\n}\n.results-stats li {\n  margin-right: 8px;\n  padding: 8px;\n}\n.size-selector {\n  border-width: 0;\n  box-shadow: none;\n  display: inline;\n}\n@media (min-width: 768px) {\n  header .header-ascii {\n    font-size: 16px;\n  }\n}\n", ""]);
 
 	// exports
 
@@ -9905,18 +9905,14 @@
 									_0: _elm_lang$svg$Svg_Attributes$textAnchor('middle'),
 									_1: {
 										ctor: '::',
-										_0: _elm_lang$svg$Svg_Attributes$id('text'),
+										_0: _elm_lang$svg$Svg_Attributes$x('50'),
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$x('50'),
+											_0: _elm_lang$svg$Svg_Attributes$y(fontY),
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$svg$Svg_Attributes$y(fontY),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$svg$Svg_Attributes$fontSize('42'),
-													_1: {ctor: '[]'}
-												}
+												_0: _elm_lang$svg$Svg_Attributes$fontSize('42'),
+												_1: {ctor: '[]'}
 											}
 										}
 									}
@@ -10090,7 +10086,7 @@
 	var _mthadley$dicey$App$subscriptions = function (_p0) {
 		return _elm_lang$core$Platform_Sub$none;
 	};
-	var _mthadley$dicey$App$getFilterF = function (filter) {
+	var _mthadley$dicey$App$getFilterFn = function (filter) {
 		var _p1 = filter;
 		switch (_p1.ctor) {
 			case 'GreaterThan':
@@ -10109,6 +10105,31 @@
 						return _elm_lang$core$Native_Utils.eq(x, y);
 					});
 		}
+	};
+	var _mthadley$dicey$App$filterBtnDisabled = function (_p2) {
+		var _p3 = _p2;
+		var filterFn = function (value) {
+			return function (_p4) {
+				return !A2(
+					_elm_lang$core$Basics$flip(
+						_mthadley$dicey$App$getFilterFn(_p3.selectedFilter)),
+					value,
+					_p4);
+			};
+		};
+		var filtered = function (value) {
+			return function (_p5) {
+				return _elm_lang$core$List$isEmpty(
+					A2(
+						_elm_lang$core$List$filter,
+						filterFn(value),
+						_p5));
+			};
+		};
+		return A2(
+			_elm_lang$core$Maybe$withDefault,
+			true,
+			A3(_elm_lang$core$Maybe$map2, filtered, _p3.filterValue, _p3.rolls));
 	};
 	var _mthadley$dicey$App$viewStats = function (rolls) {
 		var viewStat = F2(
@@ -10177,21 +10198,21 @@
 			});
 	};
 	var _mthadley$dicey$App$viewDice = F2(
-		function (_p2, rolls) {
-			var _p3 = _p2;
+		function (_p6, rolls) {
+			var _p7 = _p6;
 			var filterHelper = function (value) {
 				return A2(
 					_elm_lang$core$Maybe$withDefault,
 					true,
 					A2(
 						_elm_lang$core$Maybe$map,
-						A2(_mthadley$dicey$App$getFilterF, _p3.selectedFilter, value),
-						_p3.filterValue));
+						A2(_mthadley$dicey$App$getFilterFn, _p7.selectedFilter, value),
+						_p7.filterValue));
 			};
 			var viewHelper = function (value) {
 				return A3(
 					_mthadley$dicey$Dice$view,
-					_p3.diceSize,
+					_p7.diceSize,
 					filterHelper(value),
 					_elm_lang$core$Basics$toString(value));
 			};
@@ -10205,14 +10226,14 @@
 				A2(_elm_lang$core$List$map, viewHelper, rolls));
 		});
 	var _mthadley$dicey$App$viewResults = function (model) {
-		var _p4 = model.rolls;
-		if (_p4.ctor === 'Nothing') {
+		var _p8 = model.rolls;
+		if (_p8.ctor === 'Nothing') {
 			return A2(
 				_elm_lang$html$Html$div,
 				{ctor: '[]'},
 				{ctor: '[]'});
 		} else {
-			var _p5 = _p4._0;
+			var _p9 = _p8._0;
 			return A2(
 				_elm_lang$html$Html$section,
 				{
@@ -10220,28 +10241,37 @@
 					_0: _elm_lang$html$Html_Attributes$class('results-container'),
 					_1: {ctor: '[]'}
 				},
-				{
+				_elm_lang$core$List$isEmpty(_p9) ? {
 					ctor: '::',
-					_0: _mthadley$dicey$App$viewStats(_p5),
+					_0: A2(
+						_elm_lang$html$Html$em,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('No More Dice!'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				} : {
+					ctor: '::',
+					_0: _mthadley$dicey$App$viewStats(_p9),
 					_1: {
 						ctor: '::',
-						_0: A2(_mthadley$dicey$App$viewDice, model, _p5),
+						_0: A2(_mthadley$dicey$App$viewDice, model, _p9),
 						_1: {ctor: '[]'}
 					}
 				});
 		}
 	};
-	var _mthadley$dicey$App$viewButtonText = function (_p6) {
+	var _mthadley$dicey$App$viewButtonText = function (_p10) {
 		return _elm_lang$html$Html$text(
 			A2(
 				_elm_lang$core$Maybe$withDefault,
 				'Roll!',
 				A2(
 					_elm_lang$core$Maybe$map,
-					function (_p7) {
-						return 'Reroll!';
-					},
-					_p6)));
+					_elm_lang$core$Basics$always('Reroll!'),
+					_p10)));
 	};
 	var _mthadley$dicey$App$diceSizes = {
 		ctor: '::',
@@ -10313,47 +10343,61 @@
 					count,
 					A2(_elm_lang$core$Random$int, 1, size)));
 		});
-	var _mthadley$dicey$App$rollIfReady = function (_p8) {
-		var _p9 = _p8;
+	var _mthadley$dicey$App$rollIfReady = function (_p11) {
+		var _p12 = _p11;
 		return A2(
 			_elm_lang$core$Maybe$withDefault,
 			_elm_lang$core$Platform_Cmd$none,
 			A2(
 				_elm_lang$core$Maybe$map,
-				_mthadley$dicey$App$rollDice(_p9.diceSize),
-				_p9.diceCount));
+				_mthadley$dicey$App$rollDice(_p12.diceSize),
+				_p12.diceCount));
 	};
 	var _mthadley$dicey$App$update = F2(
 		function (msg, model) {
-			var _p10 = msg;
-			switch (_p10.ctor) {
+			var _p13 = msg;
+			switch (_p13.ctor) {
+				case 'ApplyFilter':
+					var filterHelper = function (_p14) {
+						return _elm_lang$core$List$filter(
+							_elm_lang$core$Basics$flip(
+								_mthadley$dicey$App$getFilterFn(model.selectedFilter))(_p14));
+					};
+					var newRolls = A3(_elm_lang$core$Maybe$map2, filterHelper, model.filterValue, model.rolls);
+					var newDiceCount = A2(_elm_lang$core$Maybe$map, _elm_lang$core$List$length, newRolls);
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{rolls: newRolls, diceCount: newDiceCount}),
+						{ctor: '[]'});
 				case 'ChangeFilterValue':
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
 							model,
-							{filterValue: _p10._0}),
+							{filterValue: _p13._0}),
 						{ctor: '[]'});
 				case 'ChangeDiceCount':
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
 							model,
-							{diceCount: _p10._0, rolls: _elm_lang$core$Maybe$Nothing}),
+							{diceCount: _p13._0, rolls: _elm_lang$core$Maybe$Nothing}),
 						{ctor: '[]'});
 				case 'ChangeSize':
 					var newModel = _elm_lang$core$Native_Utils.update(
 						model,
-						{diceSize: _p10._0, rolls: _elm_lang$core$Maybe$Nothing});
+						{diceSize: _p13._0, rolls: _elm_lang$core$Maybe$Nothing});
 					return {
 						ctor: '_Tuple2',
 						_0: newModel,
 						_1: _mthadley$dicey$App$rollIfReady(newModel)
 					};
 				case 'FilterDropdownMsg':
-					var _p11 = A2(_mthadley$dicey$Select$update, _p10._0, model.filterDropdown);
-					var newModel = _p11._0;
-					var selected = _p11._1;
+					var _p15 = A2(_mthadley$dicey$Select$update, _p13._0, model.filterDropdown);
+					var newModel = _p15._0;
+					var selected = _p15._1;
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
@@ -10372,7 +10416,7 @@
 						_elm_lang$core$Native_Utils.update(
 							model,
 							{
-								rolls: _elm_lang$core$Maybe$Just(_p10._0)
+								rolls: _elm_lang$core$Maybe$Just(_p13._0)
 							}),
 						{ctor: '[]'});
 			}
@@ -10427,6 +10471,7 @@
 			},
 			A2(_elm_lang$core$List$map, sizeSelector, _mthadley$dicey$App$diceSizes));
 	};
+	var _mthadley$dicey$App$ApplyFilter = {ctor: 'ApplyFilter'};
 	var _mthadley$dicey$App$viewMain = function (model) {
 		return A2(
 			_elm_lang$html$Html$main_,
@@ -10476,9 +10521,21 @@
 											_0: _elm_lang$html$Html_Attributes$id('diceCount'),
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$html$Html_Events$onInput(
-													_mthadley$dicey$Util$mapMaybeInt(_mthadley$dicey$App$ChangeDiceCount)),
-												_1: {ctor: '[]'}
+												_0: _elm_lang$html$Html_Attributes$type_('number'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html_Events$onInput(
+														_mthadley$dicey$Util$mapMaybeInt(_mthadley$dicey$App$ChangeDiceCount)),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$value(
+															A2(
+																_elm_lang$core$Maybe$withDefault,
+																'',
+																A2(_elm_lang$core$Maybe$map, _elm_lang$core$Basics$toString, model.diceCount))),
+														_1: {ctor: '[]'}
+													}
+												}
 											}
 										},
 										{ctor: '[]'}),
@@ -10530,7 +10587,7 @@
 											},
 											{
 												ctor: '::',
-												_0: _elm_lang$html$Html$text('Filter?'),
+												_0: _elm_lang$html$Html$text('Test?'),
 												_1: {ctor: '[]'}
 											}),
 										_1: {
@@ -10548,9 +10605,13 @@
 														_0: _elm_lang$html$Html_Attributes$id('filterValue'),
 														_1: {
 															ctor: '::',
-															_0: _elm_lang$html$Html_Events$onInput(
-																_mthadley$dicey$Util$mapMaybeInt(_mthadley$dicey$App$ChangeFilterValue)),
-															_1: {ctor: '[]'}
+															_0: _elm_lang$html$Html_Attributes$type_('number'),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$html$Html_Events$onInput(
+																	_mthadley$dicey$Util$mapMaybeInt(_mthadley$dicey$App$ChangeFilterValue)),
+																_1: {ctor: '[]'}
+															}
 														}
 													},
 													{ctor: '[]'}),
@@ -10562,7 +10623,11 @@
 									ctor: '::',
 									_0: A2(
 										_elm_lang$html$Html$div,
-										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$class('btn-group'),
+											_1: {ctor: '[]'}
+										},
 										{
 											ctor: '::',
 											_0: A2(
@@ -10582,7 +10647,31 @@
 													_0: _mthadley$dicey$App$viewButtonText(model.rolls),
 													_1: {ctor: '[]'}
 												}),
-											_1: {ctor: '[]'}
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$button,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$disabled(
+															_mthadley$dicey$App$filterBtnDisabled(model)),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$type_('button'),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$html$Html_Events$onClick(_mthadley$dicey$App$ApplyFilter),
+																_1: {ctor: '[]'}
+															}
+														}
+													},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text('Filter'),
+														_1: {ctor: '[]'}
+													}),
+												_1: {ctor: '[]'}
+											}
 										}),
 									_1: {ctor: '[]'}
 								}

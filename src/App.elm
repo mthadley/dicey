@@ -25,20 +25,24 @@ type alias Model =
 
 type Filter
     = GreaterThan
+    | GreaterThanEq
     | LessThan
+    | LessThanEq
     | Equal
 
 
 initialFilter : Select.Item Filter
 initialFilter =
-    ( "Greater Than", GreaterThan )
+    ( ">", GreaterThan )
 
 
 selectItems : List ( String, Filter )
 selectItems =
     [ initialFilter
-    , ( "Less Than", LessThan )
-    , ( "Equal", Equal )
+    , ( "≥", GreaterThanEq )
+    , ( "<", LessThan )
+    , ( "≤", LessThanEq )
+    , ( "=", Equal )
     ]
 
 
@@ -97,7 +101,11 @@ viewMain model =
                 , viewDiceSelector model.diceSize
                 ]
             , div [ Attr.class "form-group" ]
-                [ label [ Attr.for "filterValue" ] [ text "Test?" ]
+                [ label
+                    [ Attr.for "filterValue"
+                    , Attr.title "In polish notation."
+                    ]
+                    [ text "Test?" ]
                 , Html.map FilterDropdownMsg <| Select.view model.filterDropdown
                 , input
                     [ Attr.id "filterValue"
@@ -257,8 +265,14 @@ getFilterFn filter =
         GreaterThan ->
             (>)
 
+        GreaterThanEq ->
+            (>=)
+
         LessThan ->
             (<)
+
+        LessThanEq ->
+            (<=)
 
         Equal ->
             (==)

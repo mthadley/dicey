@@ -2,7 +2,6 @@
   box-shadow: var(--termShadow);
   cursor: pointer;
   display: inline-block;
-  min-width: 150px;
   position: relative;
 
   & .select-selected {
@@ -36,9 +35,9 @@
   }
 
   &:after {
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid var(--secondary);
+    border-left: var(--selectArrowSize) solid transparent;
+    border-right: var(--selectArrowSize) solid transparent;
+    border-top: var(--selectArrowSize) solid var(--secondary);
     content: '';
     height: 0;
     pointer-events: none;

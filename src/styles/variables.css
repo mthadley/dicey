@@ -6,6 +6,8 @@
 
   --termShadow: 0 0 4px color(var(--primary) l(- 20%));
 
+  --selectArrowSize: 8px;
+
   --fonts: {
     color: inherit;
     font-family: inherit;

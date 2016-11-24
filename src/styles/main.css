@@ -56,6 +56,7 @@ input {
   color: var(--secondary);
   max-width: 80px;
   outline: none;
+  padding: 4px;
 
   &::-webkit-inner-spin-button {
     display: none;

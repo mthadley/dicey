@@ -93,7 +93,7 @@
 
 
 	// module
-	exports.push([module.id, ".dice-container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n}\n.dice {\n  -webkit-backface-visibility: hidden;\n          backface-visibility: hidden;\n  fill: #48E048;\n  height: 36px;\n  margin: 0 16px 16px 0;\n  stroke: #48E048;\n  -webkit-transition: opacity 0.2s ease-out;\n  transition: opacity 0.2s ease-out;\n  width: 36px\n}\n.dice.dice-filtered {\n  opacity: 0.5;\n}\n.select {\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  cursor: pointer;\n  display: inline-block;\n  min-width: 150px;\n  position: relative\n}\n.select .select-selected {\n  background: #48E048;\n  color: #000;\n  padding: 8px 32px 8px 8px;\n}\n.select .select-list {\n  background: #000;\n  border: 2px solid #48E048;\n  border-top-width: 0;\n  color: #48E048;\n  left: 0;\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: absolute;\n  top: 100%;\n  width: 100%;\n  z-index: 100;\n}\n.select .select-list li {\n  padding: 8px;\n}\n.select .select-list li:hover {\n  background: #48E048;\n  color: #000;\n}\n.select:after {\n  border-left: 10px solid transparent;\n  border-right: 10px solid transparent;\n  border-top: 10px solid #000;\n  content: '';\n  height: 0;\n  pointer-events: none;\n  position: absolute;\n  right: 5px;\n  top: 16px;\n  width: 0;\n}\n* {\n  box-sizing: border-box;\n}\nbody {\n  background-color: #000;\n  color: #48E048;\n  font-family: 'VT323', monospace;\n  font-size: 18px;\n  text-shadow: 0 0 4px rgb(28, 166, 28);\n\n  -webkit-tap-highlight-color: #48E048;\n}\nbutton {\n  color: inherit;\n  font-family: inherit;\n  font-size: inherit;\n  text-shadow: inherit;\n\n  background: transparent;\n  border: 2px solid #48E048;\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  cursor: pointer;\n  outline: none;\n  -webkit-transition: opacity 0.2s ease;\n  transition: opacity 0.2s ease\n}\nbutton[disabled] {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\nheader {\n  display: inline-block;\n  margin-bottom: 16px\n}\nheader .header-ascii {\n  font-size: 2.5vw;\n  max-width: 100%;\n  white-space: pre;\n}\nheader .header-tagline {\n  text-align: end;\n}\ninput {\n  color: inherit;\n  font-family: inherit;\n  font-size: inherit;\n  text-shadow: inherit;\n\n  background: #48E048;\n  border-width: 0;\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  color: #000;\n  max-width: 80px;\n  outline: none\n}\ninput::-webkit-inner-spin-button {\n  display: none;\n}\nlabel {\n  display: inline-block;\n  margin: 0 16px 16px 0;\n}\n.btn-group {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex\n}\n.btn-group button {\n  margin-right: 16px;\n}\n.container {\n  margin: 0 auto;\n  max-width: 768px;\n}\n.dice-form {\n  margin-bottom: 16px\n}\n.dice-form .select {\n  margin-right: 16px;\n}\n.dice-size {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  padding: 0;\n}\n.form-group {\n  margin-bottom: 16px;\n}\n.results-container {\n  padding: 16px 0;\n  position: relative\n}\n.results-container:before {\n  background: transparent;\n  border-top: 2px solid #48E048;\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  content: '';\n  height: 2px;\n  position: absolute;\n  top: 0;\n  width: 100%;\n}\n.results-stats {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  list-style: none;\n  margin-top: 0;\n  padding: 0\n}\n.results-stats li {\n  margin-right: 8px;\n  padding: 8px;\n}\n.size-selector {\n  border-width: 0;\n  box-shadow: none;\n  display: inline;\n}\n@media (min-width: 768px) {\n  header .header-ascii {\n    font-size: 16px;\n  }\n}\n", ""]);
+	exports.push([module.id, ".dice-container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n}\n.dice {\n  -webkit-backface-visibility: hidden;\n          backface-visibility: hidden;\n  fill: #48E048;\n  height: 36px;\n  margin: 0 16px 16px 0;\n  stroke: #48E048;\n  -webkit-transition: opacity 0.2s ease-out;\n  transition: opacity 0.2s ease-out;\n  width: 36px\n}\n.dice.dice-filtered {\n  opacity: 0.5;\n}\n.select {\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  cursor: pointer;\n  display: inline-block;\n  position: relative\n}\n.select .select-selected {\n  background: #48E048;\n  color: #000;\n  padding: 8px 32px 8px 8px;\n}\n.select .select-list {\n  background: #000;\n  border: 2px solid #48E048;\n  border-top-width: 0;\n  color: #48E048;\n  left: 0;\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  position: absolute;\n  top: 100%;\n  width: 100%;\n  z-index: 100;\n}\n.select .select-list li {\n  padding: 8px;\n}\n.select .select-list li:hover {\n  background: #48E048;\n  color: #000;\n}\n.select:after {\n  border-left: 8px solid transparent;\n  border-right: 8px solid transparent;\n  border-top: 8px solid #000;\n  content: '';\n  height: 0;\n  pointer-events: none;\n  position: absolute;\n  right: 5px;\n  top: 16px;\n  width: 0;\n}\n* {\n  box-sizing: border-box;\n}\nbody {\n  background-color: #000;\n  color: #48E048;\n  font-family: 'VT323', monospace;\n  font-size: 18px;\n  text-shadow: 0 0 4px rgb(28, 166, 28);\n\n  -webkit-tap-highlight-color: #48E048;\n}\nbutton {\n  color: inherit;\n  font-family: inherit;\n  font-size: inherit;\n  text-shadow: inherit;\n\n  background: transparent;\n  border: 2px solid #48E048;\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  cursor: pointer;\n  outline: none;\n  -webkit-transition: opacity 0.2s ease;\n  transition: opacity 0.2s ease\n}\nbutton[disabled] {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\nheader {\n  display: inline-block;\n  margin-bottom: 16px\n}\nheader .header-ascii {\n  font-size: 2.5vw;\n  max-width: 100%;\n  white-space: pre;\n}\nheader .header-tagline {\n  text-align: end;\n}\ninput {\n  color: inherit;\n  font-family: inherit;\n  font-size: inherit;\n  text-shadow: inherit;\n\n  background: #48E048;\n  border-width: 0;\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  color: #000;\n  max-width: 80px;\n  outline: none;\n  padding: 4px\n}\ninput::-webkit-inner-spin-button {\n  display: none;\n}\nlabel {\n  display: inline-block;\n  margin: 0 16px 16px 0;\n}\n.btn-group {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex\n}\n.btn-group button {\n  margin-right: 16px;\n}\n.container {\n  margin: 0 auto;\n  max-width: 768px;\n}\n.dice-form {\n  margin-bottom: 16px\n}\n.dice-form .select {\n  margin-right: 16px;\n}\n.dice-size {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  padding: 0;\n}\n.form-group {\n  margin-bottom: 16px;\n}\n.results-container {\n  padding: 16px 0;\n  position: relative\n}\n.results-container:before {\n  background: transparent;\n  border-top: 2px solid #48E048;\n  box-shadow: 0 0 4px rgb(28, 166, 28);\n  content: '';\n  height: 2px;\n  position: absolute;\n  top: 0;\n  width: 100%;\n}\n.results-stats {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  list-style: none;\n  margin-top: 0;\n  padding: 0\n}\n.results-stats li {\n  margin-right: 8px;\n  padding: 8px;\n}\n.size-selector {\n  border-width: 0;\n  box-shadow: none;\n  display: inline;\n}\n@media (min-width: 768px) {\n  header .header-ascii {\n    font-size: 16px;\n  }\n}\n", ""]);
 
 	// exports
 
@@ -9825,6 +9825,16 @@
 		},
 		{ctor: '[]'});
 	var _mthadley$dicey$Dice$basePolygon = function (pts) {
+		var joinTuple = function (_p0) {
+			var _p1 = _p0;
+			return A2(
+				_elm_lang$core$Basics_ops['++'],
+				_elm_lang$core$Basics$toString(_p1._0),
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					',',
+					_elm_lang$core$Basics$toString(_p1._1)));
+		};
 		return A2(
 			_elm_lang$svg$Svg$polygon,
 			{
@@ -9835,38 +9845,137 @@
 					_0: _elm_lang$svg$Svg_Attributes$strokeWidth('5'),
 					_1: {
 						ctor: '::',
-						_0: _elm_lang$svg$Svg_Attributes$points(pts),
+						_0: _elm_lang$svg$Svg_Attributes$points(
+							A2(
+								_elm_lang$core$String$join,
+								' ',
+								A2(_elm_lang$core$List$map, joinTuple, pts))),
 						_1: {ctor: '[]'}
 					}
 				}
 			},
 			{ctor: '[]'});
 	};
-	var _mthadley$dicey$Dice$diamond = _mthadley$dicey$Dice$basePolygon('50,2 98,50 50,98 2,50');
-	var _mthadley$dicey$Dice$hexagon = _mthadley$dicey$Dice$basePolygon('50,2 98,33 98,66 50,98 2,66 2,33');
-	var _mthadley$dicey$Dice$pentagon = _mthadley$dicey$Dice$basePolygon('50,2 98,45 80,98 20,98 2,45');
-	var _mthadley$dicey$Dice$triangle = _mthadley$dicey$Dice$basePolygon('50,2 98,98 2,98');
-	var _mthadley$dicey$Dice$square = _mthadley$dicey$Dice$basePolygon('2,2 98,2 98,98 2,98');
-	var _mthadley$dicey$Dice$shape = function (sides) {
-		var _p0 = sides;
-		switch (_p0) {
+	var _mthadley$dicey$Dice$diamond = _mthadley$dicey$Dice$basePolygon(
+		{
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 50, _1: 2},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 98, _1: 50},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 50, _1: 98},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 2, _1: 50},
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		});
+	var _mthadley$dicey$Dice$hexagon = _mthadley$dicey$Dice$basePolygon(
+		{
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 50, _1: 2},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 98, _1: 33},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 98, _1: 66},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 50, _1: 98},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 2, _1: 66},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 2, _1: 33},
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}
+			}
+		});
+	var _mthadley$dicey$Dice$pentagon = _mthadley$dicey$Dice$basePolygon(
+		{
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 50, _1: 2},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 98, _1: 45},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 80, _1: 98},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 20, _1: 98},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 2, _1: 45},
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		});
+	var _mthadley$dicey$Dice$triangle = _mthadley$dicey$Dice$basePolygon(
+		{
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 50, _1: 2},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 98, _1: 98},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 2, _1: 98},
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+	var _mthadley$dicey$Dice$square = _mthadley$dicey$Dice$basePolygon(
+		{
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 2, _1: 2},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 98, _1: 2},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 98, _1: 98},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 2, _1: 98},
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		});
+	var _mthadley$dicey$Dice$getShape = function (sides) {
+		var _p2 = sides;
+		switch (_p2) {
 			case 4:
-				return _mthadley$dicey$Dice$triangle;
+				return {ctor: '_Tuple2', _0: _mthadley$dicey$Dice$triangle, _1: '75'};
 			case 6:
-				return _mthadley$dicey$Dice$square;
+				return {ctor: '_Tuple2', _0: _mthadley$dicey$Dice$square, _1: '60'};
 			case 8:
-				return _mthadley$dicey$Dice$diamond;
+				return {ctor: '_Tuple2', _0: _mthadley$dicey$Dice$diamond, _1: '60'};
 			case 12:
-				return _mthadley$dicey$Dice$pentagon;
+				return {ctor: '_Tuple2', _0: _mthadley$dicey$Dice$pentagon, _1: '70'};
 			case 20:
-				return _mthadley$dicey$Dice$hexagon;
+				return {ctor: '_Tuple2', _0: _mthadley$dicey$Dice$hexagon, _1: '60'};
 			default:
-				return _mthadley$dicey$Dice$circle;
+				return {ctor: '_Tuple2', _0: _mthadley$dicey$Dice$circle, _1: '60'};
 		}
 	};
 	var _mthadley$dicey$Dice$view = F3(
 		function (sides, active, value) {
-			var fontY = _elm_lang$core$Native_Utils.eq(sides, 4) ? '65' : '50';
+			var _p3 = _mthadley$dicey$Dice$getShape(sides);
+			var shape = _p3._0;
+			var textY = _p3._1;
 			return A2(
 				_elm_lang$svg$Svg$svg,
 				{
@@ -9892,28 +10001,24 @@
 				},
 				{
 					ctor: '::',
-					_0: _mthadley$dicey$Dice$shape(sides),
+					_0: shape,
 					_1: {
 						ctor: '::',
 						_0: A2(
 							_elm_lang$svg$Svg$text_,
 							{
 								ctor: '::',
-								_0: _elm_lang$svg$Svg_Attributes$alignmentBaseline('central'),
+								_0: _elm_lang$svg$Svg_Attributes$textAnchor('middle'),
 								_1: {
 									ctor: '::',
-									_0: _elm_lang$svg$Svg_Attributes$textAnchor('middle'),
+									_0: _elm_lang$svg$Svg_Attributes$x('50'),
 									_1: {
 										ctor: '::',
-										_0: _elm_lang$svg$Svg_Attributes$x('50'),
+										_0: _elm_lang$svg$Svg_Attributes$y(textY),
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$y(fontY),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$svg$Svg_Attributes$fontSize('42'),
-												_1: {ctor: '[]'}
-											}
+											_0: _elm_lang$svg$Svg_Attributes$fontSize('42'),
+											_1: {ctor: '[]'}
 										}
 									}
 								}
@@ -10094,10 +10199,20 @@
 					function (x, y) {
 						return _elm_lang$core$Native_Utils.cmp(x, y) > 0;
 					});
+			case 'GreaterThanEq':
+				return F2(
+					function (x, y) {
+						return _elm_lang$core$Native_Utils.cmp(x, y) > -1;
+					});
 			case 'LessThan':
 				return F2(
 					function (x, y) {
 						return _elm_lang$core$Native_Utils.cmp(x, y) < 0;
+					});
+			case 'LessThanEq':
+				return F2(
+					function (x, y) {
+						return _elm_lang$core$Native_Utils.cmp(x, y) < 1;
 					});
 			default:
 				return F2(
@@ -10303,19 +10418,29 @@
 			return {rolls: a, diceCount: b, diceSize: c, filterDropdown: d, filterValue: e, selectedFilter: f};
 		});
 	var _mthadley$dicey$App$Equal = {ctor: 'Equal'};
+	var _mthadley$dicey$App$LessThanEq = {ctor: 'LessThanEq'};
 	var _mthadley$dicey$App$LessThan = {ctor: 'LessThan'};
+	var _mthadley$dicey$App$GreaterThanEq = {ctor: 'GreaterThanEq'};
 	var _mthadley$dicey$App$GreaterThan = {ctor: 'GreaterThan'};
-	var _mthadley$dicey$App$initialFilter = {ctor: '_Tuple2', _0: 'Greater Than', _1: _mthadley$dicey$App$GreaterThan};
+	var _mthadley$dicey$App$initialFilter = {ctor: '_Tuple2', _0: '>', _1: _mthadley$dicey$App$GreaterThan};
 	var _mthadley$dicey$App$selectItems = {
 		ctor: '::',
 		_0: _mthadley$dicey$App$initialFilter,
 		_1: {
 			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'Less Than', _1: _mthadley$dicey$App$LessThan},
+			_0: {ctor: '_Tuple2', _0: '≥', _1: _mthadley$dicey$App$GreaterThanEq},
 			_1: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'Equal', _1: _mthadley$dicey$App$Equal},
-				_1: {ctor: '[]'}
+				_0: {ctor: '_Tuple2', _0: '<', _1: _mthadley$dicey$App$LessThan},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: '≤', _1: _mthadley$dicey$App$LessThanEq},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: '=', _1: _mthadley$dicey$App$Equal},
+						_1: {ctor: '[]'}
+					}
+				}
 			}
 		}
 	};
@@ -10583,7 +10708,11 @@
 											{
 												ctor: '::',
 												_0: _elm_lang$html$Html_Attributes$for('filterValue'),
-												_1: {ctor: '[]'}
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$title('In polish notation.'),
+													_1: {ctor: '[]'}
+												}
 											},
 											{
 												ctor: '::',

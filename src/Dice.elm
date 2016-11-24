@@ -9,11 +9,8 @@ import Svg.Attributes exposing (..)
 view : Int -> Bool -> String -> Html msg
 view sides active value =
     let
-        fontY =
-            if sides == 4 then
-                "65"
-            else
-                "50"
+        ( shape, textY ) =
+            getShape sides
     in
         svg
             [ class <|
@@ -27,38 +24,37 @@ view sides active value =
             , height "100"
             , viewBox "0 0 100 100"
             ]
-            [ shape sides
+            [ shape
             , text_
-                [ alignmentBaseline "central"
-                , textAnchor "middle"
+                [ textAnchor "middle"
                 , x "50"
-                , y fontY
+                , y textY
                 , fontSize "42"
                 ]
                 [ text value ]
             ]
 
 
-shape : Int -> Svg msg
-shape sides =
+getShape : Int -> ( Svg msg, String )
+getShape sides =
     case sides of
         4 ->
-            triangle
+            ( triangle, "75" )
 
         6 ->
-            square
+            ( square, "60" )
 
         8 ->
-            diamond
+            ( diamond, "60" )
 
         12 ->
-            pentagon
+            ( pentagon, "70" )
 
         20 ->
-            hexagon
+            ( hexagon, "60" )
 
         _ ->
-            circle
+            ( circle, "60" )
 
 
 basePolygon : String -> Svg msg

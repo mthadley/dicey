@@ -7,12 +7,12 @@
 }
 
 body {
+  background-color: var(--secondary);
   color: var(--primary);
   font-family: 'VT323', monospace;
   font-size: var(--fontSize);
   text-shadow: var(--termShadow);
 
-  background-color: var(--secondary);
   -webkit-tap-highlight-color: var(--primary);
 }
 
@@ -56,6 +56,10 @@ input {
   color: var(--secondary);
   max-width: 80px;
   outline: none;
+
+  &::-webkit-inner-spin-button {
+    display: none;
+  }
 }
 
 label {
@@ -85,9 +89,9 @@ label {
 }
 
 .dice-size {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   padding: 0;
 }
 
@@ -113,10 +117,10 @@ label {
 
 .results-stats {
   display: flex;
+  flex-wrap: wrap;
+  list-style: none;
   margin-top: 0;
   padding: 0;
-  list-style: none;
-  flex-wrap: wrap;
 
   & li {
     margin-right: 8px;
@@ -125,7 +129,7 @@ label {
 }
 
 .size-selector {
-  border: none;
+  border-width: 0;
   box-shadow: none;
   display: inline;
 }

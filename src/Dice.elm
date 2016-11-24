@@ -31,7 +31,6 @@ view sides active value =
             , text_
                 [ alignmentBaseline "central"
                 , textAnchor "middle"
-                , id "text"
                 , x "50"
                 , y fontY
                 , fontSize "42"

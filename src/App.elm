@@ -17,7 +17,6 @@ type alias Model =
     { rolls : Maybe (List Int)
     , diceCount : Maybe Int
     , diceSize : Int
-    , diceCountInput : String
     , filterDropdown : Select.Model Filter
     , filterValue : Maybe Int
     , selectedFilter : Filter
@@ -47,7 +46,6 @@ init : ( Model, Cmd Msg )
 init =
     { rolls = Nothing
     , diceCount = Nothing
-    , diceCountInput = ""
     , diceSize = 6
     , filterDropdown = Select.init selectItems initialFilter
     , filterValue = Nothing
@@ -86,9 +84,10 @@ viewMain model =
                 [ label [ Attr.for "diceCount" ] [ text "How many dice?" ]
                 , input
                     [ Attr.id "diceCount"
-                    , onInput ChangeDiceCount
+                    , Attr.type_ "number"
+                    , onInput <| mapMaybeInt ChangeDiceCount
                     , Attr.value <|
-                        Maybe.withDefault model.diceCountInput <|
+                        Maybe.withDefault "" <|
                             Maybe.map toString model.diceCount
                     ]
                     []
@@ -102,6 +101,7 @@ viewMain model =
                 , Html.map FilterDropdownMsg <| Select.view model.filterDropdown
                 , input
                     [ Attr.id "filterValue"
+                    , Attr.type_ "number"
                     , onInput <| mapMaybeInt ChangeFilterValue
                     ]
                     []
@@ -131,13 +131,14 @@ viewResults model =
             div [] []
 
         Just rolls ->
-            section [ Attr.class "results-container" ]
-                [ viewStats rolls
-                , if List.isEmpty rolls then
-                    em [] [ text "No More Dice!" ]
-                  else
-                    viewDice model rolls
-                ]
+            section [ Attr.class "results-container" ] <|
+                if List.isEmpty rolls then
+                    [ em [] [ text "No More Dice!" ]
+                    ]
+                else
+                    [ viewStats rolls
+                    , viewDice model rolls
+                    ]
 
 
 viewDice : Model -> List Int -> Html Msg
@@ -188,7 +189,7 @@ type Msg
     = ApplyFilter
     | ChangeSize Int
     | ChangeFilterValue (Maybe Int)
-    | ChangeDiceCount String
+    | ChangeDiceCount (Maybe Int)
     | FilterDropdownMsg (Select.Msg Filter)
     | Roll
     | RollResults (List Int)
@@ -214,12 +215,7 @@ update msg model =
             { model | filterValue = value } ! []
 
         ChangeDiceCount count ->
-            { model
-                | diceCount = Result.toMaybe <| String.toInt count
-                , diceCountInput = count
-                , rolls = Nothing
-            }
-                ! []
+            { model | diceCount = count, rolls = Nothing } ! []
 
         ChangeSize size ->
             let

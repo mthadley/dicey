@@ -1,9 +1,12 @@
 module Dice exposing (view)
 
 import Html exposing (Html)
-import Html.Attributes as Attr
 import Svg exposing (..)
 import Svg.Attributes exposing (..)
+
+
+type alias Point =
+    ( Int, Int )
 
 
 view : Int -> Bool -> String -> Html msg
@@ -57,14 +60,18 @@ getShape sides =
             ( circle, "60" )
 
 
-basePolygon : String -> Svg msg
+basePolygon : List Point -> Svg msg
 basePolygon pts =
-    polygon
-        [ fill "none"
-        , strokeWidth "5"
-        , points pts
-        ]
-        []
+    let
+        joinTuple ( x, y ) =
+            (toString x) ++ "," ++ (toString y)
+    in
+        polygon
+            [ fill "none"
+            , strokeWidth "5"
+            , points <| String.join " " <| List.map joinTuple pts
+            ]
+            []
 
 
 circle : Svg msg
@@ -81,24 +88,51 @@ circle =
 
 diamond : Svg msg
 diamond =
-    basePolygon "50,2 98,50 50,98 2,50"
+    basePolygon
+        [ ( 50, 2 )
+        , ( 98, 50 )
+        , ( 50, 98 )
+        , ( 2, 50 )
+        ]
 
 
 hexagon : Svg msg
 hexagon =
-    basePolygon "50,2 98,33 98,66 50,98 2,66 2,33"
+    basePolygon
+        [ ( 50, 2 )
+        , ( 98, 33 )
+        , ( 98, 66 )
+        , ( 50, 98 )
+        , ( 2, 66 )
+        , ( 2, 33 )
+        ]
 
 
 pentagon : Svg msg
 pentagon =
-    basePolygon "50,2 98,45 80,98 20,98 2,45"
+    basePolygon
+        [ ( 50, 2 )
+        , ( 98, 45 )
+        , ( 80, 98 )
+        , ( 20, 98 )
+        , ( 2, 45 )
+        ]
 
 
 triangle : Svg msg
 triangle =
-    basePolygon "50,2 98,98 2,98"
+    basePolygon
+        [ ( 50, 2 )
+        , ( 98, 98 )
+        , ( 2, 98 )
+        ]
 
 
 square : Svg msg
 square =
-    basePolygon "2,2 98,2 98,98 2,98"
+    basePolygon
+        [ ( 2, 2 )
+        , ( 98, 2 )
+        , ( 98, 98 )
+        , ( 2, 98 )
+        ]

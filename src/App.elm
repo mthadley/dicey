@@ -36,7 +36,7 @@ initialFilter =
     ( ">", GreaterThan )
 
 
-selectItems : List ( String, Filter )
+selectItems : List (Select.Item Filter)
 selectItems =
     [ initialFilter
     , ( "≥", GreaterThanEq )

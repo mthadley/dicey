@@ -1976,8 +1976,7 @@
 		var type = typeof v;
 		if (type === 'function')
 		{
-			var name = v.func ? v.func.name : v.name;
-			return '<function' + (name === '' ? '' : ':') + name + '>';
+			return '<function>';
 		}
 
 		if (type === 'boolean')
@@ -2484,6 +2483,13 @@
 	var _elm_lang$core$List$sortBy = _elm_lang$core$Native_List.sortBy;
 	var _elm_lang$core$List$sort = function (xs) {
 		return A2(_elm_lang$core$List$sortBy, _elm_lang$core$Basics$identity, xs);
+	};
+	var _elm_lang$core$List$singleton = function (value) {
+		return {
+			ctor: '::',
+			_0: value,
+			_1: {ctor: '[]'}
+		};
 	};
 	var _elm_lang$core$List$drop = F2(
 		function (n, list) {
@@ -3932,15 +3938,8 @@
 			sentBeforeInit.push(value);
 		}
 
-		function postInitSend(incomingValue)
+		function postInitSend(value)
 		{
-			var result = A2(_elm_lang$core$Json_Decode$decodeValue, converter, incomingValue);
-			if (result.ctor === 'Err')
-			{
-				throw new Error('Trying to send an unexpected type of value through port `' + name + '`:\n' + result._0);
-			}
-
-			var value = result._0;
 			var temp = subs;
 			while (temp.ctor !== '[]')
 			{
@@ -3951,7 +3950,13 @@
 
 		function send(incomingValue)
 		{
-			currentSend(incomingValue);
+			var result = A2(_elm_lang$core$Json_Decode$decodeValue, converter, incomingValue);
+			if (result.ctor === 'Err')
+			{
+				throw new Error('Trying to send an unexpected type of value through port `' + name + '`:\n' + result._0);
+			}
+
+			currentSend(result._0);
 		}
 
 		return { send: send };
@@ -4572,7 +4577,7 @@
 	function indexes(sub, str)
 	{
 		var subLen = sub.length;
-		
+
 		if (subLen < 1)
 		{
 			return _elm_lang$core$Native_List.Nil;
@@ -4585,74 +4590,78 @@
 		{
 			is.push(i);
 			i = i + subLen;
-		}	
-		
+		}
+
 		return _elm_lang$core$Native_List.fromArray(is);
 	}
+
 
 	function toInt(s)
 	{
 		var len = s.length;
+
+		// if empty
 		if (len === 0)
 		{
-			return _elm_lang$core$Result$Err("could not convert string '" + s + "' to an Int" );
+			return intErr(s);
 		}
-		var start = 0;
-		if (s[0] === '-')
+
+		// if hex
+		var c = s[0];
+		if (c === '0' && s[1] === 'x')
 		{
-			if (len === 1)
+			for (var i = 2; i < len; ++i)
 			{
-				return _elm_lang$core$Result$Err("could not convert string '" + s + "' to an Int" );
+				var c = s[i];
+				if (('0' <= c && c <= '9') || ('A' <= c && c <= 'F') || ('a' <= c && c <= 'f'))
+				{
+					continue;
+				}
+				return intErr(s);
 			}
-			start = 1;
+			return _elm_lang$core$Result$Ok(parseInt(s, 16));
 		}
-		for (var i = start; i < len; ++i)
+
+		// is decimal
+		if (c > '9' || (c < '0' && c !== '-' && c !== '+'))
+		{
+			return intErr(s);
+		}
+		for (var i = 1; i < len; ++i)
 		{
 			var c = s[i];
 			if (c < '0' || '9' < c)
 			{
-				return _elm_lang$core$Result$Err("could not convert string '" + s + "' to an Int" );
+				return intErr(s);
 			}
 		}
+
 		return _elm_lang$core$Result$Ok(parseInt(s, 10));
 	}
 
+	function intErr(s)
+	{
+		return _elm_lang$core$Result$Err("could not convert string '" + s + "' to an Int");
+	}
+
+
 	function toFloat(s)
 	{
-		var len = s.length;
-		if (len === 0)
+		// check if it is a hex, octal, or binary number
+		if (s.length === 0 || /[\sxbo]/.test(s))
 		{
-			return _elm_lang$core$Result$Err("could not convert string '" + s + "' to a Float" );
+			return floatErr(s);
 		}
-		var start = 0;
-		if (s[0] === '-')
-		{
-			if (len === 1)
-			{
-				return _elm_lang$core$Result$Err("could not convert string '" + s + "' to a Float" );
-			}
-			start = 1;
-		}
-		var dotCount = 0;
-		for (var i = start; i < len; ++i)
-		{
-			var c = s[i];
-			if ('0' <= c && c <= '9')
-			{
-				continue;
-			}
-			if (c === '.')
-			{
-				dotCount += 1;
-				if (dotCount <= 1)
-				{
-					continue;
-				}
-			}
-			return _elm_lang$core$Result$Err("could not convert string '" + s + "' to a Float" );
-		}
-		return _elm_lang$core$Result$Ok(parseFloat(s));
+		var n = +s;
+		// faster isNaN check
+		return n === n ? _elm_lang$core$Result$Ok(n) : floatErr(s);
 	}
+
+	function floatErr(s)
+	{
+		return _elm_lang$core$Result$Err("could not convert string '" + s + "' to a Float");
+	}
+
 
 	function toList(str)
 	{
@@ -6107,11 +6116,6 @@
 					problem = problem.rest;
 					break;
 
-				case 'index':
-					context += '[' + problem.index + ']';
-					problem = problem.rest;
-					break;
-
 				case 'oneOf':
 					var problems = problem.problems;
 					for (var i = 0; i < problems.length; i++)
@@ -6550,6 +6554,10 @@
 	var _elm_lang$core$Json_Decode$string = _elm_lang$core$Native_Json.decodePrimitive('string');
 	var _elm_lang$core$Json_Decode$Decoder = {ctor: 'Decoder'};
 
+	var _elm_lang$core$Process$kill = _elm_lang$core$Native_Scheduler.kill;
+	var _elm_lang$core$Process$sleep = _elm_lang$core$Native_Scheduler.sleep;
+	var _elm_lang$core$Process$spawn = _elm_lang$core$Native_Scheduler.spawn;
+
 	var _elm_lang$core$Tuple$mapSecond = F2(
 		function (func, _p0) {
 			var _p1 = _p0;
@@ -6956,6 +6964,192 @@
 		});
 	_elm_lang$core$Native_Platform.effectManagers['Random'] = {pkg: 'elm-lang/core', init: _elm_lang$core$Random$init, onEffects: _elm_lang$core$Random$onEffects, onSelfMsg: _elm_lang$core$Random$onSelfMsg, tag: 'cmd', cmdMap: _elm_lang$core$Random$cmdMap};
 
+	var _elm_lang$dom$Native_Dom = function() {
+
+	var fakeNode = {
+		addEventListener: function() {},
+		removeEventListener: function() {}
+	};
+
+	var onDocument = on(typeof document !== 'undefined' ? document : fakeNode);
+	var onWindow = on(typeof window !== 'undefined' ? window : fakeNode);
+
+	function on(node)
+	{
+		return function(eventName, decoder, toTask)
+		{
+			return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
+
+				function performTask(event)
+				{
+					var result = A2(_elm_lang$core$Json_Decode$decodeValue, decoder, event);
+					if (result.ctor === 'Ok')
+					{
+						_elm_lang$core$Native_Scheduler.rawSpawn(toTask(result._0));
+					}
+				}
+
+				node.addEventListener(eventName, performTask);
+
+				return function()
+				{
+					node.removeEventListener(eventName, performTask);
+				};
+			});
+		};
+	}
+
+	var rAF = typeof requestAnimationFrame !== 'undefined'
+		? requestAnimationFrame
+		: function(callback) { callback(); };
+
+	function withNode(id, doStuff)
+	{
+		return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+		{
+			rAF(function()
+			{
+				var node = document.getElementById(id);
+				if (node === null)
+				{
+					callback(_elm_lang$core$Native_Scheduler.fail({ ctor: 'NotFound', _0: id }));
+					return;
+				}
+				callback(_elm_lang$core$Native_Scheduler.succeed(doStuff(node)));
+			});
+		});
+	}
+
+
+	// FOCUS
+
+	function focus(id)
+	{
+		return withNode(id, function(node) {
+			node.focus();
+			return _elm_lang$core$Native_Utils.Tuple0;
+		});
+	}
+
+	function blur(id)
+	{
+		return withNode(id, function(node) {
+			node.blur();
+			return _elm_lang$core$Native_Utils.Tuple0;
+		});
+	}
+
+
+	// SCROLLING
+
+	function getScrollTop(id)
+	{
+		return withNode(id, function(node) {
+			return node.scrollTop;
+		});
+	}
+
+	function setScrollTop(id, desiredScrollTop)
+	{
+		return withNode(id, function(node) {
+			node.scrollTop = desiredScrollTop;
+			return _elm_lang$core$Native_Utils.Tuple0;
+		});
+	}
+
+	function toBottom(id)
+	{
+		return withNode(id, function(node) {
+			node.scrollTop = node.scrollHeight;
+			return _elm_lang$core$Native_Utils.Tuple0;
+		});
+	}
+
+	function getScrollLeft(id)
+	{
+		return withNode(id, function(node) {
+			return node.scrollLeft;
+		});
+	}
+
+	function setScrollLeft(id, desiredScrollLeft)
+	{
+		return withNode(id, function(node) {
+			node.scrollLeft = desiredScrollLeft;
+			return _elm_lang$core$Native_Utils.Tuple0;
+		});
+	}
+
+	function toRight(id)
+	{
+		return withNode(id, function(node) {
+			node.scrollLeft = node.scrollWidth;
+			return _elm_lang$core$Native_Utils.Tuple0;
+		});
+	}
+
+
+	// SIZE
+
+	function width(options, id)
+	{
+		return withNode(id, function(node) {
+			switch (options.ctor)
+			{
+				case 'Content':
+					return node.scrollWidth;
+				case 'VisibleContent':
+					return node.clientWidth;
+				case 'VisibleContentWithBorders':
+					return node.offsetWidth;
+				case 'VisibleContentWithBordersAndMargins':
+					var rect = node.getBoundingClientRect();
+					return rect.right - rect.left;
+			}
+		});
+	}
+
+	function height(options, id)
+	{
+		return withNode(id, function(node) {
+			switch (options.ctor)
+			{
+				case 'Content':
+					return node.scrollHeight;
+				case 'VisibleContent':
+					return node.clientHeight;
+				case 'VisibleContentWithBorders':
+					return node.offsetHeight;
+				case 'VisibleContentWithBordersAndMargins':
+					var rect = node.getBoundingClientRect();
+					return rect.bottom - rect.top;
+			}
+		});
+	}
+
+	return {
+		onDocument: F3(onDocument),
+		onWindow: F3(onWindow),
+
+		focus: focus,
+		blur: blur,
+
+		getScrollTop: getScrollTop,
+		setScrollTop: F2(setScrollTop),
+		getScrollLeft: getScrollLeft,
+		setScrollLeft: F2(setScrollLeft),
+		toBottom: toBottom,
+		toRight: toRight,
+
+		height: F2(height),
+		width: F2(width)
+	};
+
+	}();
+
+	var _elm_lang$dom$Dom_LowLevel$onWindow = _elm_lang$dom$Native_Dom.onWindow;
+	var _elm_lang$dom$Dom_LowLevel$onDocument = _elm_lang$dom$Native_Dom.onDocument;
+
 	var _elm_lang$virtual_dom$VirtualDom_Debug$wrap;
 	var _elm_lang$virtual_dom$VirtualDom_Debug$wrapWithFlags;
 
@@ -7218,9 +7412,9 @@
 
 	function equalEvents(a, b)
 	{
-		if (!a.options === b.options)
+		if (a.options !== b.options)
 		{
-			if (a.stopPropagation !== b.stopPropagation || a.preventDefault !== b.preventDefault)
+			if (a.options.stopPropagation !== b.options.stopPropagation || a.options.preventDefault !== b.options.preventDefault)
 			{
 				return false;
 			}
@@ -8496,7 +8690,7 @@
 	var rAF =
 		typeof requestAnimationFrame !== 'undefined'
 			? requestAnimationFrame
-			: function(callback) { callback(); };
+			: function(callback) { setTimeout(callback, 1000 / 60); };
 
 	function makeStepper(domNode, view, initialVirtualNode, eventNode)
 	{
@@ -9459,6 +9653,189 @@
 			return {stopPropagation: a, preventDefault: b};
 		});
 
+	var _elm_lang$mouse$Mouse_ops = _elm_lang$mouse$Mouse_ops || {};
+	_elm_lang$mouse$Mouse_ops['&>'] = F2(
+		function (t1, t2) {
+			return A2(
+				_elm_lang$core$Task$andThen,
+				function (_p0) {
+					return t2;
+				},
+				t1);
+		});
+	var _elm_lang$mouse$Mouse$onSelfMsg = F3(
+		function (router, _p1, state) {
+			var _p2 = _p1;
+			var _p3 = A2(_elm_lang$core$Dict$get, _p2.category, state);
+			if (_p3.ctor === 'Nothing') {
+				return _elm_lang$core$Task$succeed(state);
+			} else {
+				var send = function (tagger) {
+					return A2(
+						_elm_lang$core$Platform$sendToApp,
+						router,
+						tagger(_p2.position));
+				};
+				return A2(
+					_elm_lang$mouse$Mouse_ops['&>'],
+					_elm_lang$core$Task$sequence(
+						A2(_elm_lang$core$List$map, send, _p3._0.taggers)),
+					_elm_lang$core$Task$succeed(state));
+			}
+		});
+	var _elm_lang$mouse$Mouse$init = _elm_lang$core$Task$succeed(_elm_lang$core$Dict$empty);
+	var _elm_lang$mouse$Mouse$categorizeHelpHelp = F2(
+		function (value, maybeValues) {
+			var _p4 = maybeValues;
+			if (_p4.ctor === 'Nothing') {
+				return _elm_lang$core$Maybe$Just(
+					{
+						ctor: '::',
+						_0: value,
+						_1: {ctor: '[]'}
+					});
+			} else {
+				return _elm_lang$core$Maybe$Just(
+					{ctor: '::', _0: value, _1: _p4._0});
+			}
+		});
+	var _elm_lang$mouse$Mouse$categorizeHelp = F2(
+		function (subs, subDict) {
+			categorizeHelp:
+			while (true) {
+				var _p5 = subs;
+				if (_p5.ctor === '[]') {
+					return subDict;
+				} else {
+					var _v4 = _p5._1,
+						_v5 = A3(
+						_elm_lang$core$Dict$update,
+						_p5._0._0,
+						_elm_lang$mouse$Mouse$categorizeHelpHelp(_p5._0._1),
+						subDict);
+					subs = _v4;
+					subDict = _v5;
+					continue categorizeHelp;
+				}
+			}
+		});
+	var _elm_lang$mouse$Mouse$categorize = function (subs) {
+		return A2(_elm_lang$mouse$Mouse$categorizeHelp, subs, _elm_lang$core$Dict$empty);
+	};
+	var _elm_lang$mouse$Mouse$subscription = _elm_lang$core$Native_Platform.leaf('Mouse');
+	var _elm_lang$mouse$Mouse$Position = F2(
+		function (a, b) {
+			return {x: a, y: b};
+		});
+	var _elm_lang$mouse$Mouse$position = A3(
+		_elm_lang$core$Json_Decode$map2,
+		_elm_lang$mouse$Mouse$Position,
+		A2(_elm_lang$core$Json_Decode$field, 'pageX', _elm_lang$core$Json_Decode$int),
+		A2(_elm_lang$core$Json_Decode$field, 'pageY', _elm_lang$core$Json_Decode$int));
+	var _elm_lang$mouse$Mouse$Watcher = F2(
+		function (a, b) {
+			return {taggers: a, pid: b};
+		});
+	var _elm_lang$mouse$Mouse$Msg = F2(
+		function (a, b) {
+			return {category: a, position: b};
+		});
+	var _elm_lang$mouse$Mouse$onEffects = F3(
+		function (router, newSubs, oldState) {
+			var rightStep = F3(
+				function (category, taggers, task) {
+					var tracker = A3(
+						_elm_lang$dom$Dom_LowLevel$onDocument,
+						category,
+						_elm_lang$mouse$Mouse$position,
+						function (_p6) {
+							return A2(
+								_elm_lang$core$Platform$sendToSelf,
+								router,
+								A2(_elm_lang$mouse$Mouse$Msg, category, _p6));
+						});
+					return A2(
+						_elm_lang$core$Task$andThen,
+						function (state) {
+							return A2(
+								_elm_lang$core$Task$andThen,
+								function (pid) {
+									return _elm_lang$core$Task$succeed(
+										A3(
+											_elm_lang$core$Dict$insert,
+											category,
+											A2(_elm_lang$mouse$Mouse$Watcher, taggers, pid),
+											state));
+								},
+								_elm_lang$core$Process$spawn(tracker));
+						},
+						task);
+				});
+			var bothStep = F4(
+				function (category, _p7, taggers, task) {
+					var _p8 = _p7;
+					return A2(
+						_elm_lang$core$Task$andThen,
+						function (state) {
+							return _elm_lang$core$Task$succeed(
+								A3(
+									_elm_lang$core$Dict$insert,
+									category,
+									A2(_elm_lang$mouse$Mouse$Watcher, taggers, _p8.pid),
+									state));
+						},
+						task);
+				});
+			var leftStep = F3(
+				function (category, _p9, task) {
+					var _p10 = _p9;
+					return A2(
+						_elm_lang$mouse$Mouse_ops['&>'],
+						_elm_lang$core$Process$kill(_p10.pid),
+						task);
+				});
+			return A6(
+				_elm_lang$core$Dict$merge,
+				leftStep,
+				bothStep,
+				rightStep,
+				oldState,
+				_elm_lang$mouse$Mouse$categorize(newSubs),
+				_elm_lang$core$Task$succeed(_elm_lang$core$Dict$empty));
+		});
+	var _elm_lang$mouse$Mouse$MySub = F2(
+		function (a, b) {
+			return {ctor: 'MySub', _0: a, _1: b};
+		});
+	var _elm_lang$mouse$Mouse$clicks = function (tagger) {
+		return _elm_lang$mouse$Mouse$subscription(
+			A2(_elm_lang$mouse$Mouse$MySub, 'click', tagger));
+	};
+	var _elm_lang$mouse$Mouse$moves = function (tagger) {
+		return _elm_lang$mouse$Mouse$subscription(
+			A2(_elm_lang$mouse$Mouse$MySub, 'mousemove', tagger));
+	};
+	var _elm_lang$mouse$Mouse$downs = function (tagger) {
+		return _elm_lang$mouse$Mouse$subscription(
+			A2(_elm_lang$mouse$Mouse$MySub, 'mousedown', tagger));
+	};
+	var _elm_lang$mouse$Mouse$ups = function (tagger) {
+		return _elm_lang$mouse$Mouse$subscription(
+			A2(_elm_lang$mouse$Mouse$MySub, 'mouseup', tagger));
+	};
+	var _elm_lang$mouse$Mouse$subMap = F2(
+		function (func, _p11) {
+			var _p12 = _p11;
+			return A2(
+				_elm_lang$mouse$Mouse$MySub,
+				_p12._0,
+				function (_p13) {
+					return func(
+						_p12._1(_p13));
+				});
+		});
+	_elm_lang$core$Native_Platform.effectManagers['Mouse'] = {pkg: 'elm-lang/mouse', init: _elm_lang$mouse$Mouse$init, onEffects: _elm_lang$mouse$Mouse$onEffects, onSelfMsg: _elm_lang$mouse$Mouse$onSelfMsg, tag: 'sub', subMap: _elm_lang$mouse$Mouse$subMap};
+
 	var _elm_lang$svg$Svg$map = _elm_lang$virtual_dom$VirtualDom$map;
 	var _elm_lang$svg$Svg$text = _elm_lang$virtual_dom$VirtualDom$text;
 	var _elm_lang$svg$Svg$svgNamespace = A2(
@@ -10096,23 +10473,32 @@
 	var _mthadley$dicey$Select$update = F2(
 		function (msg, model) {
 			var _p0 = msg;
-			if (_p0.ctor === 'SelectItem') {
-				var _p1 = _p0._0;
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{open: false, selected: _p1}),
-					_1: _elm_lang$core$Tuple$second(_p1)
-				};
-			} else {
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{open: !model.open}),
-					_1: _elm_lang$core$Tuple$second(model.selected)
-				};
+			switch (_p0.ctor) {
+				case 'Click':
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{open: false}),
+						_1: _elm_lang$core$Tuple$second(model.selected)
+					};
+				case 'SelectItem':
+					var _p1 = _p0._0;
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{open: false, selected: _p1}),
+						_1: _elm_lang$core$Tuple$second(_p1)
+					};
+				default:
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{open: !model.open}),
+						_1: _elm_lang$core$Tuple$second(model.selected)
+					};
 			}
 		});
 	var _mthadley$dicey$Select$Model = F3(
@@ -10187,13 +10573,15 @@
 				},
 				_mthadley$dicey$Select$viewList(model)));
 	};
-
-	var _mthadley$dicey$App$subscriptions = function (_p0) {
-		return _elm_lang$core$Platform_Sub$none;
+	var _mthadley$dicey$Select$Click = {ctor: 'Click'};
+	var _mthadley$dicey$Select$subscriptions = function (model) {
+		return model.open ? _elm_lang$mouse$Mouse$clicks(
+			_elm_lang$core$Basics$always(_mthadley$dicey$Select$Click)) : _elm_lang$core$Platform_Sub$none;
 	};
+
 	var _mthadley$dicey$App$getFilterFn = function (filter) {
-		var _p1 = filter;
-		switch (_p1.ctor) {
+		var _p0 = filter;
+		switch (_p0.ctor) {
 			case 'GreaterThan':
 				return F2(
 					function (x, y) {
@@ -10221,30 +10609,30 @@
 					});
 		}
 	};
-	var _mthadley$dicey$App$filterBtnDisabled = function (_p2) {
-		var _p3 = _p2;
+	var _mthadley$dicey$App$filterBtnDisabled = function (_p1) {
+		var _p2 = _p1;
 		var filterFn = function (value) {
-			return function (_p4) {
+			return function (_p3) {
 				return !A2(
 					_elm_lang$core$Basics$flip(
-						_mthadley$dicey$App$getFilterFn(_p3.selectedFilter)),
+						_mthadley$dicey$App$getFilterFn(_p2.selectedFilter)),
 					value,
-					_p4);
+					_p3);
 			};
 		};
 		var filtered = function (value) {
-			return function (_p5) {
+			return function (_p4) {
 				return _elm_lang$core$List$isEmpty(
 					A2(
 						_elm_lang$core$List$filter,
 						filterFn(value),
-						_p5));
+						_p4));
 			};
 		};
 		return A2(
 			_elm_lang$core$Maybe$withDefault,
 			true,
-			A3(_elm_lang$core$Maybe$map2, filtered, _p3.filterValue, _p3.rolls));
+			A3(_elm_lang$core$Maybe$map2, filtered, _p2.filterValue, _p2.rolls));
 	};
 	var _mthadley$dicey$App$viewStats = function (rolls) {
 		var viewStat = F2(
@@ -10313,21 +10701,21 @@
 			});
 	};
 	var _mthadley$dicey$App$viewDice = F2(
-		function (_p6, rolls) {
-			var _p7 = _p6;
+		function (_p5, rolls) {
+			var _p6 = _p5;
 			var filterHelper = function (value) {
 				return A2(
 					_elm_lang$core$Maybe$withDefault,
 					true,
 					A2(
 						_elm_lang$core$Maybe$map,
-						A2(_mthadley$dicey$App$getFilterFn, _p7.selectedFilter, value),
-						_p7.filterValue));
+						A2(_mthadley$dicey$App$getFilterFn, _p6.selectedFilter, value),
+						_p6.filterValue));
 			};
 			var viewHelper = function (value) {
 				return A3(
 					_mthadley$dicey$Dice$view,
-					_p7.diceSize,
+					_p6.diceSize,
 					filterHelper(value),
 					_elm_lang$core$Basics$toString(value));
 			};
@@ -10341,14 +10729,14 @@
 				A2(_elm_lang$core$List$map, viewHelper, rolls));
 		});
 	var _mthadley$dicey$App$viewResults = function (model) {
-		var _p8 = model.rolls;
-		if (_p8.ctor === 'Nothing') {
+		var _p7 = model.rolls;
+		if (_p7.ctor === 'Nothing') {
 			return A2(
 				_elm_lang$html$Html$div,
 				{ctor: '[]'},
 				{ctor: '[]'});
 		} else {
-			var _p9 = _p8._0;
+			var _p8 = _p7._0;
 			return A2(
 				_elm_lang$html$Html$section,
 				{
@@ -10356,7 +10744,7 @@
 					_0: _elm_lang$html$Html_Attributes$class('results-container'),
 					_1: {ctor: '[]'}
 				},
-				_elm_lang$core$List$isEmpty(_p9) ? {
+				_elm_lang$core$List$isEmpty(_p8) ? {
 					ctor: '::',
 					_0: A2(
 						_elm_lang$html$Html$em,
@@ -10369,16 +10757,16 @@
 					_1: {ctor: '[]'}
 				} : {
 					ctor: '::',
-					_0: _mthadley$dicey$App$viewStats(_p9),
+					_0: _mthadley$dicey$App$viewStats(_p8),
 					_1: {
 						ctor: '::',
-						_0: A2(_mthadley$dicey$App$viewDice, model, _p9),
+						_0: A2(_mthadley$dicey$App$viewDice, model, _p8),
 						_1: {ctor: '[]'}
 					}
 				});
 		}
 	};
-	var _mthadley$dicey$App$viewButtonText = function (_p10) {
+	var _mthadley$dicey$App$viewButtonText = function (_p9) {
 		return _elm_lang$html$Html$text(
 			A2(
 				_elm_lang$core$Maybe$withDefault,
@@ -10386,7 +10774,7 @@
 				A2(
 					_elm_lang$core$Maybe$map,
 					_elm_lang$core$Basics$always('Reroll!'),
-					_p10)));
+					_p9)));
 	};
 	var _mthadley$dicey$App$diceSizes = {
 		ctor: '::',
@@ -10468,25 +10856,25 @@
 					count,
 					A2(_elm_lang$core$Random$int, 1, size)));
 		});
-	var _mthadley$dicey$App$rollIfReady = function (_p11) {
-		var _p12 = _p11;
+	var _mthadley$dicey$App$rollIfReady = function (_p10) {
+		var _p11 = _p10;
 		return A2(
 			_elm_lang$core$Maybe$withDefault,
 			_elm_lang$core$Platform_Cmd$none,
 			A2(
 				_elm_lang$core$Maybe$map,
-				_mthadley$dicey$App$rollDice(_p12.diceSize),
-				_p12.diceCount));
+				_mthadley$dicey$App$rollDice(_p11.diceSize),
+				_p11.diceCount));
 	};
 	var _mthadley$dicey$App$update = F2(
 		function (msg, model) {
-			var _p13 = msg;
-			switch (_p13.ctor) {
+			var _p12 = msg;
+			switch (_p12.ctor) {
 				case 'ApplyFilter':
-					var filterHelper = function (_p14) {
+					var filterHelper = function (_p13) {
 						return _elm_lang$core$List$filter(
 							_elm_lang$core$Basics$flip(
-								_mthadley$dicey$App$getFilterFn(model.selectedFilter))(_p14));
+								_mthadley$dicey$App$getFilterFn(model.selectedFilter))(_p13));
 					};
 					var newRolls = A3(_elm_lang$core$Maybe$map2, filterHelper, model.filterValue, model.rolls);
 					var newDiceCount = A2(_elm_lang$core$Maybe$map, _elm_lang$core$List$length, newRolls);
@@ -10501,28 +10889,28 @@
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
 							model,
-							{filterValue: _p13._0}),
+							{filterValue: _p12._0}),
 						{ctor: '[]'});
 				case 'ChangeDiceCount':
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
 							model,
-							{diceCount: _p13._0, rolls: _elm_lang$core$Maybe$Nothing}),
+							{diceCount: _p12._0, rolls: _elm_lang$core$Maybe$Nothing}),
 						{ctor: '[]'});
 				case 'ChangeSize':
 					var newModel = _elm_lang$core$Native_Utils.update(
 						model,
-						{diceSize: _p13._0, rolls: _elm_lang$core$Maybe$Nothing});
+						{diceSize: _p12._0, rolls: _elm_lang$core$Maybe$Nothing});
 					return {
 						ctor: '_Tuple2',
 						_0: newModel,
 						_1: _mthadley$dicey$App$rollIfReady(newModel)
 					};
 				case 'FilterDropdownMsg':
-					var _p15 = A2(_mthadley$dicey$Select$update, _p13._0, model.filterDropdown);
-					var newModel = _p15._0;
-					var selected = _p15._1;
+					var _p14 = A2(_mthadley$dicey$Select$update, _p12._0, model.filterDropdown);
+					var newModel = _p14._0;
+					var selected = _p14._1;
 					return A2(
 						_elm_lang$core$Platform_Cmd_ops['!'],
 						_elm_lang$core$Native_Utils.update(
@@ -10541,7 +10929,7 @@
 						_elm_lang$core$Native_Utils.update(
 							model,
 							{
-								rolls: _elm_lang$core$Maybe$Just(_p13._0)
+								rolls: _elm_lang$core$Maybe$Just(_p12._0)
 							}),
 						{ctor: '[]'});
 			}
@@ -10549,6 +10937,13 @@
 	var _mthadley$dicey$App$Roll = {ctor: 'Roll'};
 	var _mthadley$dicey$App$FilterDropdownMsg = function (a) {
 		return {ctor: 'FilterDropdownMsg', _0: a};
+	};
+	var _mthadley$dicey$App$subscriptions = function (_p15) {
+		var _p16 = _p15;
+		return A2(
+			_elm_lang$core$Platform_Sub$map,
+			_mthadley$dicey$App$FilterDropdownMsg,
+			_mthadley$dicey$Select$subscriptions(_p16.filterDropdown));
 	};
 	var _mthadley$dicey$App$ChangeDiceCount = function (a) {
 		return {ctor: 'ChangeDiceCount', _0: a};

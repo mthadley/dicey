@@ -36,7 +36,7 @@ initialFilter =
     ( ">", GreaterThan )
 
 
-selectItems : List (Select.Item Filter)
+selectItems : List ( String, Filter )
 selectItems =
     [ initialFilter
     , ( "≥", GreaterThanEq )
@@ -296,5 +296,5 @@ filterBtnDisabled { filterValue, rolls, selectedFilter } =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions _ =
-    Sub.none
+subscriptions { filterDropdown } =
+    Sub.map FilterDropdownMsg <| Select.subscriptions filterDropdown

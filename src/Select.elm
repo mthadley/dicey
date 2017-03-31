@@ -1,9 +1,10 @@
-module Select exposing (Item, Model, Msg, init, update, view)
+module Select exposing (Item, Model, Msg, init, update, subscriptions, view)
 
 import Html exposing (..)
 import Html.Attributes as Attr
 import Html.Events exposing (..)
 import Tuple exposing (first, second)
+import Mouse
 
 
 -- MODEL
@@ -60,15 +61,31 @@ viewItem item =
 
 
 type Msg a
-    = Toggle
+    = Click
+    | Toggle
     | SelectItem (Item a)
 
 
 update : Msg a -> Model a -> ( Model a, a )
 update msg model =
     case msg of
+        Click ->
+            ( { model | open = False }, second model.selected )
+
         SelectItem item ->
             ( { model | open = False, selected = item }, second item )
 
         Toggle ->
             ( { model | open = not model.open }, second model.selected )
+
+
+
+-- SUBS
+
+
+subscriptions : Model a -> Sub (Msg a)
+subscriptions model =
+    if model.open then
+        Mouse.clicks <| always Click
+    else
+        Sub.none

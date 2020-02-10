@@ -1,0 +1,226 @@
+:root {
+  --primary: #48E048;
+  --secondary: #111;
+
+  --fontSize: 18px;
+
+  --termShadow: 0 0 4px color(var(--primary) l(- 20%));
+
+  --selectArrowSize: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--secondary);
+  color: var(--primary);
+  font-family: 'VT323', monospace;
+  font-size: var(--fontSize);
+  text-shadow: var(--termShadow);
+
+  -webkit-tap-highlight-color: var(--primary);
+}
+
+button {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  text-shadow: inherit;
+
+  background: transparent;
+  border: 2px solid var(--primary);
+  box-shadow: var(--termShadow);
+  cursor: pointer;
+  outline: none;
+  transition: opacity 0.2s ease;
+}
+
+button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+header {
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+header .header-ascii {
+  font-size: 2.5vw;
+  max-width: 100%;
+  white-space: pre;
+}
+
+header .header-tagline {
+  text-align: end;
+}
+
+input {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  text-shadow: inherit;
+
+  background: var(--primary);
+  border-width: 0;
+  box-shadow: var(--termShadow);
+  color: var(--secondary);
+  max-width: 80px;
+  outline: none;
+  padding: 4px;
+}
+
+input::-webkit-inner-spin-button {
+  display: none;
+}
+
+label {
+  display: inline-block;
+  margin: 0 16px 16px 0;
+}
+
+.btn-group {
+  display: flex;
+}
+
+.btn-group button {
+  margin-right: 16px;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 768px;
+}
+
+.dice-form {
+  margin-bottom: 16px;
+}
+
+.dice-form .select {
+  margin-right: 16px;
+}
+
+.dice-size {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.results-container {
+  padding: 16px 0;
+  position: relative;
+}
+
+.results-container:before {
+  background: transparent;
+  border-top: 2px solid var(--primary);
+  box-shadow: var(--termShadow);
+  content: '';
+  height: 2px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.results-stats {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin-top: 0;
+  padding: 0;
+}
+
+.results-stats li {
+  margin-right: 8px;
+  padding: 8px;
+}
+
+.size-selector {
+  border-width: 0;
+  box-shadow: none;
+  display: inline;
+}
+
+.dice-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dice {
+  backface-visibility: hidden;
+  fill: var(--primary);
+  height: 36px;
+  margin: 0 16px 16px 0;
+  stroke: var(--primary);
+  transition: opacity 0.2s ease-out;
+  width: 36px;
+}
+
+.dice.dice-filtered {
+  opacity: 0.5;
+}
+
+.select {
+  box-shadow: var(--termShadow);
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+}
+
+.select .select-selected {
+  background: var(--primary);
+  color: var(--secondary);
+  padding: 8px 32px 8px 8px;
+}
+
+.select .select-list {
+  background: var(--secondary);
+  border: 2px solid var(--primary);
+  border-top-width: 0;
+  color: var(--primary);
+  left: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  z-index: 100;
+
+}
+
+.select .select-list li {
+  padding: 8px;
+
+}
+
+.select .select-list li:hover {
+  background: var(--primary);
+  color: var(--secondary);
+}
+
+.select:after {
+  border-left: var(--selectArrowSize) solid transparent;
+  border-right: var(--selectArrowSize) solid transparent;
+  border-top: var(--selectArrowSize) solid var(--secondary);
+  content: '';
+  height: 0;
+  pointer-events: none;
+  position: absolute;
+  right: 5px;
+  top: 16px;
+  width: 0;
+}
+
+@media (min-width: 768px) {
+  header .header-ascii {
+    font-size: 16px;
+  }
+}

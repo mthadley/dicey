@@ -1,14 +1,9 @@
-module Util exposing (..)
+module Util exposing (average, isJust, isNothing)
 
 
 average : List Int -> Float
 average values =
     (toFloat <| List.sum values) / (toFloat <| List.length values)
-
-
-mapMaybeInt : (Maybe Int -> msg) -> String -> msg
-mapMaybeInt msg =
-    String.toInt >> Result.toMaybe >> msg
 
 
 isJust : Maybe a -> Bool

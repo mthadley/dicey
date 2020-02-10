@@ -15,27 +15,28 @@ view sides active value =
         ( shape, textY ) =
             getShape sides
     in
-        svg
-            [ class <|
-                "dice"
-                    ++ (if active then
-                            ""
-                        else
-                            " dice-filtered"
-                       )
-            , width "100"
-            , height "100"
-            , viewBox "0 0 100 100"
+    svg
+        [ class <|
+            "dice"
+                ++ (if active then
+                        ""
+
+                    else
+                        " dice-filtered"
+                   )
+        , width "100"
+        , height "100"
+        , viewBox "0 0 100 100"
+        ]
+        [ shape
+        , text_
+            [ textAnchor "middle"
+            , x "50"
+            , y textY
+            , fontSize "42"
             ]
-            [ shape
-            , text_
-                [ textAnchor "middle"
-                , x "50"
-                , y textY
-                , fontSize "42"
-                ]
-                [ text value ]
-            ]
+            [ text value ]
+        ]
 
 
 getShape : Int -> ( Svg msg, String )
@@ -64,14 +65,14 @@ basePolygon : List Point -> Svg msg
 basePolygon pts =
     let
         joinTuple ( x, y ) =
-            (toString x) ++ "," ++ (toString y)
+            String.fromInt x ++ "," ++ String.fromInt y
     in
-        polygon
-            [ fill "none"
-            , strokeWidth "5"
-            , points <| String.join " " <| List.map joinTuple pts
-            ]
-            []
+    polygon
+        [ fill "none"
+        , strokeWidth "5"
+        , points <| String.join " " <| List.map joinTuple pts
+        ]
+        []
 
 
 circle : Svg msg

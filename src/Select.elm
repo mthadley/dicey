@@ -1,10 +1,11 @@
-module Select exposing (Item, Model, Msg, init, update, subscriptions, view)
+module Select exposing (Item, Model, Msg, init, subscriptions, update, view)
 
+import Browser.Events
 import Html exposing (..)
 import Html.Attributes as Attr
 import Html.Events exposing (..)
-import Tuple exposing (first, second)
-import Mouse
+import Json.Decode as Decode
+
 
 
 -- MODEL
@@ -34,10 +35,10 @@ view : Model a -> Html (Msg a)
 view model =
     div [ Attr.class "select" ] <|
         [ div [ Attr.class "select-selected", onClick Toggle ]
-            [ text <| first model.selected
+            [ text <| Tuple.first model.selected
             ]
         ]
-            ++ (viewList model)
+            ++ viewList model
 
 
 viewList : Model a -> List (Html (Msg a))
@@ -46,6 +47,7 @@ viewList model =
         [ ul [ Attr.class "select-list" ] <|
             List.map viewItem model.items
         ]
+
     else
         []
 
@@ -53,7 +55,7 @@ viewList model =
 viewItem : Item a -> Html (Msg a)
 viewItem item =
     li [ onClick <| SelectItem item ]
-        [ text <| first item ]
+        [ text <| Tuple.first item ]
 
 
 
@@ -70,13 +72,19 @@ update : Msg a -> Model a -> ( Model a, a )
 update msg model =
     case msg of
         Click ->
-            ( { model | open = False }, second model.selected )
+            ( { model | open = False }
+            , Tuple.second model.selected
+            )
 
         SelectItem item ->
-            ( { model | open = False, selected = item }, second item )
+            ( { model | open = False, selected = item }
+            , Tuple.second item
+            )
 
         Toggle ->
-            ( { model | open = not model.open }, second model.selected )
+            ( { model | open = not model.open }
+            , Tuple.second model.selected
+            )
 
 
 
@@ -86,6 +94,7 @@ update msg model =
 subscriptions : Model a -> Sub (Msg a)
 subscriptions model =
     if model.open then
-        Mouse.clicks <| always Click
+        Browser.Events.onClick (Decode.succeed Click)
+
     else
         Sub.none

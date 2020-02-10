@@ -1,13 +1,15 @@
-module App exposing (Model, Msg, init, update, view, subscriptions)
+module App exposing (Model, Msg, init, subscriptions, update, view)
 
+import Browser
 import Dice
 import Header
 import Html exposing (..)
 import Html.Attributes as Attr
 import Html.Events exposing (..)
 import Random
-import Util exposing (average, mapMaybeInt, isNothing)
 import Select
+import Util exposing (average, isNothing)
+
 
 
 -- MODEL
@@ -48,14 +50,15 @@ selectItems =
 
 init : ( Model, Cmd Msg )
 init =
-    { rolls = Nothing
-    , diceCount = Nothing
-    , diceSize = 6
-    , filterDropdown = Select.init selectItems initialFilter
-    , filterValue = Nothing
-    , selectedFilter = Tuple.second initialFilter
-    }
-        ! []
+    ( { rolls = Nothing
+      , diceCount = Nothing
+      , diceSize = 6
+      , filterDropdown = Select.init selectItems initialFilter
+      , filterValue = Nothing
+      , selectedFilter = Tuple.second initialFilter
+      }
+    , Cmd.none
+    )
 
 
 diceSizes : List Int
@@ -67,12 +70,16 @@ diceSizes =
 -- VIEW
 
 
-view : Model -> Html Msg
+view : Model -> Browser.Document Msg
 view model =
-    div [ Attr.class "container" ]
-        [ Header.view
-        , viewMain model
+    { title = "Dicey: Roll some dice!"
+    , body =
+        [ div [ Attr.class "container" ]
+            [ Header.view
+            , viewMain model
+            ]
         ]
+    }
 
 
 viewButtonText : Maybe a -> Html msg
@@ -89,10 +96,10 @@ viewMain model =
                 , input
                     [ Attr.id "diceCount"
                     , Attr.type_ "number"
-                    , onInput <| mapMaybeInt ChangeDiceCount
+                    , onInput <| (String.toInt >> ChangeDiceCount)
                     , Attr.value <|
                         Maybe.withDefault "" <|
-                            Maybe.map toString model.diceCount
+                            Maybe.map String.fromInt model.diceCount
                     ]
                     []
                 ]
@@ -110,7 +117,7 @@ viewMain model =
                 , input
                     [ Attr.id "filterValue"
                     , Attr.type_ "number"
-                    , onInput <| mapMaybeInt ChangeFilterValue
+                    , onInput (String.toInt >> ChangeFilterValue)
                     ]
                     []
                 ]
@@ -143,6 +150,7 @@ viewResults model =
                 if List.isEmpty rolls then
                     [ em [] [ text "No More Dice!" ]
                     ]
+
                 else
                     [ viewStats rolls
                     , viewDice model rolls
@@ -157,9 +165,9 @@ viewDice { diceSize, selectedFilter, filterValue } rolls =
                 |> Maybe.withDefault True
 
         viewHelper value =
-            Dice.view diceSize (filterHelper value) <| toString value
+            Dice.view diceSize (filterHelper value) <| String.fromInt value
     in
-        div [ Attr.class "dice-container" ] <| List.map viewHelper rolls
+    div [ Attr.class "dice-container" ] <| List.map viewHelper rolls
 
 
 viewDiceSelector : Int -> Html Msg
@@ -171,22 +179,22 @@ viewDiceSelector selectedSize =
                 , Attr.type_ "button"
                 , onClick <| ChangeSize size
                 ]
-                [ Dice.view size (selectedSize == size) <| toString size ]
+                [ Dice.view size (selectedSize == size) <| String.fromInt size ]
     in
-        div [ Attr.class "dice-selector" ] <| List.map sizeSelector diceSizes
+    div [ Attr.class "dice-selector" ] <| List.map sizeSelector diceSizes
 
 
 viewStats : List Int -> Html Msg
 viewStats rolls =
     let
         viewStat label value =
-            text <| label ++ (toString <| Maybe.withDefault 0 <| value)
+            text <| label ++ (String.fromInt <| Maybe.withDefault 0 <| value)
     in
-        ul [ Attr.class "results-stats" ]
-            [ li [] [ text <| "Average: " ++ (String.left 4 <| toString <| average rolls) ]
-            , li [] [ viewStat "Largest: " <| List.maximum rolls ]
-            , li [] [ viewStat "Smallest: " <| List.minimum rolls ]
-            ]
+    ul [ Attr.class "results-stats" ]
+        [ li [] [ text <| "Average: " ++ (String.left 4 <| String.fromFloat <| average rolls) ]
+        , li [] [ viewStat "Largest: " <| List.maximum rolls ]
+        , li [] [ viewStat "Smallest: " <| List.minimum rolls ]
+        ]
 
 
 
@@ -208,8 +216,8 @@ update msg model =
     case msg of
         ApplyFilter ->
             let
-                filterHelper =
-                    List.filter << (flip <| getFilterFn model.selectedFilter)
+                filterHelper filterValue =
+                    List.filter (getFilterFn model.selectedFilter filterValue)
 
                 newRolls =
                     Maybe.map2 filterHelper model.filterValue model.rolls
@@ -217,33 +225,35 @@ update msg model =
                 newDiceCount =
                     Maybe.map List.length newRolls
             in
-                { model | rolls = newRolls, diceCount = newDiceCount } ! []
+            ( { model | rolls = newRolls, diceCount = newDiceCount }, Cmd.none )
 
         ChangeFilterValue value ->
-            { model | filterValue = value } ! []
+            ( { model | filterValue = value }, Cmd.none )
 
         ChangeDiceCount count ->
-            { model | diceCount = count, rolls = Nothing } ! []
+            ( { model | diceCount = count, rolls = Nothing }, Cmd.none )
 
         ChangeSize size ->
             let
                 newModel =
                     { model | diceSize = size, rolls = Nothing }
             in
-                ( newModel, rollIfReady newModel )
+            ( newModel, rollIfReady newModel )
 
         FilterDropdownMsg childMsg ->
             let
                 ( newModel, selected ) =
                     Select.update childMsg model.filterDropdown
             in
-                { model | filterDropdown = newModel, selectedFilter = selected } ! []
+            ( { model | filterDropdown = newModel, selectedFilter = selected }
+            , Cmd.none
+            )
 
         Roll ->
             ( model, rollIfReady model )
 
         RollResults values ->
-            { model | rolls = Just values } ! []
+            ( { model | rolls = Just values }, Cmd.none )
 
 
 rollIfReady : Model -> Cmd Msg
@@ -282,13 +292,13 @@ filterBtnDisabled : Model -> Bool
 filterBtnDisabled { filterValue, rolls, selectedFilter } =
     let
         filterFn value =
-            not << (flip <| getFilterFn selectedFilter) value
+            not << getFilterFn selectedFilter value
 
         filtered value =
             List.isEmpty << List.filter (filterFn value)
     in
-        Maybe.map2 filtered filterValue rolls
-            |> Maybe.withDefault True
+    Maybe.map2 filtered filterValue rolls
+        |> Maybe.withDefault True
 
 
 

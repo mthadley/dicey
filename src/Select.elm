@@ -1,10 +1,11 @@
-module Select exposing (Item, Model, Msg, init, subscriptions, update, view)
+module Select exposing (Item, Model, Msg, init, update, view)
 
 import Browser.Events
 import Html exposing (..)
 import Html.Attributes as Attr
 import Html.Events exposing (..)
 import Json.Decode as Decode
+import List.Extra
 
 
 
@@ -16,15 +17,14 @@ type alias Item a =
 
 
 type alias Model a =
-    { open : Bool
-    , items : List (Item a)
+    { items : List (Item a)
     , selected : Item a
     }
 
 
 init : List (Item a) -> Item a -> Model a
 init =
-    Model False
+    Model
 
 
 
@@ -34,28 +34,36 @@ init =
 view : Model a -> Html (Msg a)
 view model =
     div [ Attr.class "select" ] <|
-        [ div [ Attr.class "select-selected", onClick Toggle ]
+        [ div [ Attr.class "select-selected" ]
             [ text <| Tuple.first model.selected
+            , viewList model
             ]
         ]
-            ++ viewList model
 
 
-viewList : Model a -> List (Html (Msg a))
+viewList : Model a -> Html (Msg a)
 viewList model =
-    if model.open then
-        [ ul [ Attr.class "select-list" ] <|
-            List.map viewItem model.items
+    select
+        [ Attr.class "select-list"
+        , Attr.style "position" "absolute"
+        , Attr.style "top" "0"
+        , Attr.style "bottom" "0"
+        , Attr.style "left" "0"
+        , Attr.style "right" "0"
+        , Attr.style "width" "100%"
+        , Attr.style "opacity" "0"
+        , Attr.style "-webkit-appearance" "none"
+        , Attr.style "-moz-appearance" "none"
+        , Attr.style "appearance" "none"
+        , on "change" (Decode.map SelectItem targetValue)
         ]
-
-    else
-        []
+        (List.map viewItem model.items)
 
 
 viewItem : Item a -> Html (Msg a)
-viewItem item =
-    li [ onClick <| SelectItem item ]
-        [ text <| Tuple.first item ]
+viewItem ( label, _ ) =
+    option [ Attr.value label ]
+        [ text label ]
 
 
 
@@ -63,38 +71,18 @@ viewItem item =
 
 
 type Msg a
-    = Click
-    | Toggle
-    | SelectItem (Item a)
+    = SelectItem String
 
 
 update : Msg a -> Model a -> ( Model a, a )
 update msg model =
     case msg of
-        Click ->
-            ( { model | open = False }
-            , Tuple.second model.selected
-            )
-
-        SelectItem item ->
-            ( { model | open = False, selected = item }
+        SelectItem value ->
+            let
+                item =
+                    List.Extra.find (\( label, _ ) -> label == value) model.items
+                        |> Maybe.withDefault model.selected
+            in
+            ( { model | selected = item }
             , Tuple.second item
             )
-
-        Toggle ->
-            ( { model | open = not model.open }
-            , Tuple.second model.selected
-            )
-
-
-
--- SUBS
-
-
-subscriptions : Model a -> Sub (Msg a)
-subscriptions model =
-    if model.open then
-        Browser.Events.onClick (Decode.succeed Click)
-
-    else
-        Sub.none

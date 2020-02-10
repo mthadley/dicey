@@ -1,4 +1,4 @@
-module App exposing (Model, Msg, init, subscriptions, update, view)
+module App exposing (Model, Msg, init, update, view)
 
 import Browser
 import Dice
@@ -299,12 +299,3 @@ filterBtnDisabled { filterValue, rolls, selectedFilter } =
     in
     Maybe.map2 filtered filterValue rolls
         |> Maybe.withDefault True
-
-
-
--- SUBS
-
-
-subscriptions : Model -> Sub Msg
-subscriptions { filterDropdown } =
-    Sub.map FilterDropdownMsg <| Select.subscriptions filterDropdown

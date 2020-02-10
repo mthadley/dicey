@@ -1,6 +1,6 @@
 module Main exposing (main)
 
-import App exposing (Model, Msg, init, subscriptions, update, view)
+import App exposing (Model, Msg, init, update, view)
 import Browser
 
 
@@ -10,5 +10,5 @@ main =
         { init = \_ -> init
         , view = view
         , update = update
-        , subscriptions = subscriptions
+        , subscriptions = \_ -> Sub.none
         }

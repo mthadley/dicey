@@ -178,9 +178,15 @@ label {
   background: var(--primary);
   color: var(--secondary);
   padding: 8px 32px 8px 8px;
+  position: relative;
 }
 
 .select .select-list {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  text-shadow: inherit;
+
   background: var(--secondary);
   border: 2px solid var(--primary);
   border-top-width: 0;

@@ -1,9 +1,9 @@
 module Select exposing (Item, Model, Msg, init, update, view)
 
 import Browser.Events
-import Html exposing (..)
-import Html.Attributes as Attr
-import Html.Events exposing (..)
+import Html.Styled exposing (..)
+import Html.Styled.Attributes as Attr
+import Html.Styled.Events exposing (..)
 import Json.Decode as Decode
 import List.Extra
 

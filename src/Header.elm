@@ -1,7 +1,7 @@
 module Header exposing (view)
 
-import Html exposing (..)
-import Html.Attributes exposing (class)
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (class)
 
 
 splash : String

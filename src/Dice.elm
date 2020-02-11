@@ -1,8 +1,8 @@
 module Dice exposing (view)
 
-import Html exposing (Html)
-import Svg exposing (..)
-import Svg.Attributes exposing (..)
+import Html.Styled as Html exposing (Html)
+import Svg.Styled as Svg exposing (..)
+import Svg.Styled.Attributes exposing (..)
 
 
 type alias Point =

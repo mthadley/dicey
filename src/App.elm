@@ -3,9 +3,9 @@ module App exposing (Model, Msg, init, update, view)
 import Browser
 import Dice
 import Header
-import Html exposing (..)
-import Html.Attributes as Attr
-import Html.Events exposing (..)
+import Html.Styled as Html exposing (..)
+import Html.Styled.Attributes as Attr
+import Html.Styled.Events exposing (..)
 import Random
 import Select
 import Util exposing (average, isNothing)
@@ -79,6 +79,7 @@ view model =
             , viewMain model
             ]
         ]
+            |> List.map toUnstyled
     }
 
 

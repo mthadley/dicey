@@ -1,6 +1,9 @@
 module App exposing (Model, Msg, init, update, view)
 
 import Browser
+import Css exposing (..)
+import Css.Global
+import Css.Transitions exposing (transition)
 import Dice
 import Header
 import Html.Styled as Html exposing (..)
@@ -8,6 +11,7 @@ import Html.Styled.Attributes as Attr
 import Html.Styled.Events exposing (..)
 import Random
 import Select
+import Theme
 import Util exposing (average, isNothing)
 
 
@@ -74,7 +78,22 @@ view : Model -> Browser.Document Msg
 view model =
     { title = "Dicey: Roll some dice!"
     , body =
-        [ div [ Attr.class "container" ]
+        [ Css.Global.global
+            [ Css.Global.everything
+                [ boxSizing borderBox
+                ]
+            , Css.Global.body
+                [ Theme.baseFont
+                , backgroundColor Theme.theme.secondary
+                , color Theme.theme.primary
+                , property "-webkit-tap-highlight-color" "#48E048"
+                ]
+            ]
+        , styled div
+            [ margin2 zero auto
+            , maxWidth (px 768)
+            ]
+            []
             [ Header.view
             , viewMain model
             ]
@@ -91,10 +110,13 @@ viewButtonText =
 viewMain : Model -> Html Msg
 viewMain model =
     main_ []
-        [ form [ Attr.class "dice-form", onSubmit Roll ]
-            [ div [ Attr.class "form-group" ]
-                [ label [ Attr.for "diceCount" ] [ text "How many dice?" ]
-                , input
+        [ styled form
+            [ marginBottom (px 16) ]
+            [ onSubmit Roll
+            ]
+            [ viewFormGroup
+                [ viewLabel [ Attr.for "diceCount" ] [ text "How many dice?" ]
+                , viewInput
                     [ Attr.id "diceCount"
                     , Attr.type_ "number"
                     , onInput <| (String.toInt >> ChangeDiceCount)
@@ -104,31 +126,41 @@ viewMain model =
                     ]
                     []
                 ]
-            , div [ Attr.class "form-group" ]
-                [ label [] [ text "Number of sides?" ]
+            , viewFormGroup
+                [ viewLabel [] [ text "Number of sides?" ]
                 , viewDiceSelector model.diceSize
                 ]
-            , div [ Attr.class "form-group" ]
-                [ label
+            , viewFormGroup
+                [ viewLabel
                     [ Attr.for "filterValue"
                     , Attr.title "In polish notation."
                     ]
                     [ text "Test?" ]
-                , Html.map FilterDropdownMsg <| Select.view model.filterDropdown
-                , input
+                , styled span
+                    [ marginRight (px 16) ]
+                    []
+                    [ Select.view model.filterDropdown
+                        |> Html.map FilterDropdownMsg
+                    ]
+                , viewInput
                     [ Attr.id "filterValue"
                     , Attr.type_ "number"
                     , onInput (String.toInt >> ChangeFilterValue)
                     ]
                     []
                 ]
-            , div [ Attr.class "btn-group" ]
-                [ button
+            , styled div
+                [ property "display" "grid"
+                , property "grid-gap" "16px"
+                , property "grid" "1fr / auto-flow minmax(120px, max-content)"
+                ]
+                []
+                [ viewButton
                     [ Attr.disabled <| isNothing model.diceCount
                     , Attr.type_ "submit"
                     ]
                     [ viewButtonText model.rolls ]
-                , button
+                , viewButton
                     [ Attr.disabled <| filterBtnDisabled model
                     , Attr.type_ "button"
                     , onClick ApplyFilter
@@ -147,15 +179,30 @@ viewResults model =
             div [] []
 
         Just rolls ->
-            section [ Attr.class "results-container" ] <|
-                if List.isEmpty rolls then
-                    [ em [] [ text "No More Dice!" ]
+            styled section
+                [ padding2 (px 16) zero
+                , position relative
+                , before
+                    [ backgroundColor transparent
+                    , borderTop3 (px 2) solid Theme.theme.primary
+                    , Theme.baseShadow
+                    , property "content" "''"
+                    , height (px 2)
+                    , position absolute
+                    , top zero
+                    , width (pct 100)
+                    ]
+                ]
+                []
+                (if List.isEmpty rolls then
+                    [ Html.em [] [ text "No More Dice!" ]
                     ]
 
-                else
+                 else
                     [ viewStats rolls
                     , viewDice model rolls
                     ]
+                )
 
 
 viewDice : Model -> List Int -> Html Msg
@@ -168,16 +215,22 @@ viewDice { diceSize, selectedFilter, filterValue } rolls =
         viewHelper value =
             Dice.view diceSize (filterHelper value) <| String.fromInt value
     in
-    div [ Attr.class "dice-container" ] <| List.map viewHelper rolls
+    styled div
+        [ displayFlex, flexWrap wrap ]
+        []
+        (List.map viewHelper rolls)
 
 
 viewDiceSelector : Int -> Html Msg
 viewDiceSelector selectedSize =
     let
         sizeSelector size =
-            button
-                [ Attr.class "size-selector"
-                , Attr.type_ "button"
+            styled button
+                [ borderWidth zero
+                , Theme.baseFont
+                , backgroundColor transparent
+                ]
+                [ Attr.type_ "button"
                 , onClick <| ChangeSize size
                 ]
                 [ Dice.view size (selectedSize == size) <| String.fromInt size ]
@@ -191,11 +244,63 @@ viewStats rolls =
         viewStat label value =
             text <| label ++ (String.fromInt <| Maybe.withDefault 0 <| value)
     in
-    ul [ Attr.class "results-stats" ]
+    styled ul
+        [ property "display" "grid"
+        , property "grid" "1fr / auto-flow fit-content(100%)"
+        , property "grid-gap" "24px"
+        , listStyle none
+        , marginTop zero
+        , padding zero
+        ]
+        []
         [ li [] [ text <| "Average: " ++ (String.left 4 <| String.fromFloat <| average rolls) ]
         , li [] [ viewStat "Largest: " <| List.maximum rolls ]
         , li [] [ viewStat "Smallest: " <| List.minimum rolls ]
         ]
+
+
+viewButton : List (Attribute msg) -> List (Html msg) -> Html msg
+viewButton =
+    styled button
+        [ Theme.baseFont
+        , backgroundColor transparent
+        , border3 (px 2) solid Theme.theme.primary
+        , Theme.baseShadow
+        , cursor pointer
+        , transition [ Css.Transitions.opacity3 200 0 Css.Transitions.ease ]
+        , disabled
+            [ cursor notAllowed
+            , opacity (num 0.5)
+            ]
+        ]
+
+
+viewInput : List (Attribute msg) -> List (Html msg) -> Html msg
+viewInput =
+    styled input
+        [ Theme.baseFont
+        , backgroundColor Theme.theme.primary
+        , borderWidth zero
+        , Theme.baseShadow
+        , color Theme.theme.secondary
+        , maxWidth (px 80)
+        , padding (px 4)
+        ]
+
+
+viewLabel : List (Attribute msg) -> List (Html msg) -> Html msg
+viewLabel =
+    styled label
+        [ display inlineBlock
+        , margin4 zero (px 16) (px 16) zero
+        ]
+
+
+viewFormGroup : List (Html msg) -> Html msg
+viewFormGroup =
+    styled div
+        [ marginBottom (px 16) ]
+        []
 
 
 

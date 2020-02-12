@@ -1,11 +1,13 @@
 module Select exposing (Item, Model, Msg, init, update, view)
 
 import Browser.Events
+import Css exposing (..)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes as Attr
 import Html.Styled.Events exposing (..)
 import Json.Decode as Decode
 import List.Extra
+import Theme
 
 
 
@@ -33,11 +35,34 @@ init =
 
 view : Model a -> Html (Msg a)
 view model =
-    div [ Attr.class "select" ] <|
-        [ div [ Attr.class "select-selected" ]
-            [ text <| Tuple.first model.selected
-            , viewList model
+    styled div
+        [ Theme.baseShadow
+        , cursor pointer
+        , display inlineBlock
+        , position relative
+        , backgroundColor Theme.theme.primary
+        , color Theme.theme.secondary
+        , padding4 (px 8) (px 32) (px 8) (px 8)
+        , let
+            arrowSize =
+                px 8
+          in
+          after
+            [ borderLeft3 arrowSize solid transparent
+            , borderRight3 arrowSize solid transparent
+            , borderTop3 arrowSize solid Theme.theme.secondary
+            , property "content" "''"
+            , height zero
+            , pointerEvents none
+            , position absolute
+            , right (px 5)
+            , top (px 16)
+            , width zero
             ]
+        ]
+        []
+        [ text <| Tuple.first model.selected
+        , viewList model
         ]
 
 

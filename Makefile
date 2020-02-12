@@ -4,7 +4,7 @@ ELM_MAIN = $(OUT)/index.js
 ELM_FILES = $(shell find src -iname "*.elm")
 
 .PHONY: all
-all: $(ELM_MAIN) $(OUT)/index.html $(OUT)/index.css
+all: $(ELM_MAIN) $(OUT)/index.html
 
 ifeq ($(ENVIRONMENT), production)
 CFLAGS = --optimize

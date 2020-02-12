@@ -1,8 +1,11 @@
 module Dice exposing (view)
 
+import Css exposing (..)
+import Css.Transitions
 import Html.Styled as Html exposing (Html)
 import Svg.Styled as Svg exposing (..)
-import Svg.Styled.Attributes exposing (..)
+import Svg.Styled.Attributes as Attrs exposing (..)
+import Theme
 
 
 type alias Point =
@@ -15,7 +18,22 @@ view sides active value =
         ( shape, textY ) =
             getShape sides
     in
-    svg
+    styled svg
+        [ property "backface-visibility" "hidden"
+        , Css.fill Theme.theme.primary
+        , Css.height (px 36)
+        , margin4 zero (px 16) (px 16) zero
+        , property "stroke" "#48E048"
+        , Css.width (px 36)
+        , Css.Transitions.transition
+            [ Css.Transitions.opacity3 500 0 Css.Transitions.easeOut
+            ]
+        , if active then
+            Css.batch []
+
+          else
+            Css.batch [ Css.opacity (num 0.5) ]
+        ]
         [ class <|
             "dice"
                 ++ (if active then
@@ -24,16 +42,16 @@ view sides active value =
                     else
                         " dice-filtered"
                    )
-        , width "100"
-        , height "100"
-        , viewBox "0 0 100 100"
+        , Attrs.width "100"
+        , Attrs.height "100"
+        , Attrs.viewBox "0 0 100 100"
         ]
         [ shape
-        , text_
+        , Svg.text_
             [ textAnchor "middle"
             , x "50"
             , y textY
-            , fontSize "42"
+            , Attrs.fontSize "42"
             ]
             [ text value ]
         ]
@@ -68,7 +86,7 @@ basePolygon pts =
             String.fromInt x ++ "," ++ String.fromInt y
     in
     polygon
-        [ fill "none"
+        [ Attrs.fill "none"
         , strokeWidth "5"
         , points <| String.join " " <| List.map joinTuple pts
         ]
@@ -81,7 +99,7 @@ circle =
         [ cx "50"
         , cy "50"
         , r "47"
-        , fill "none"
+        , Attrs.fill "none"
         , strokeWidth "5"
         ]
         []
